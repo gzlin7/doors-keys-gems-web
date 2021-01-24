@@ -51,8 +51,6 @@ experimentApp.controller('ExperimentController',
       "goal_probs_0",
       "goal_probs_1",
       "goal_probs_2",
-      "goal_probs_3",
-      "goal_probs_4",
       "true_goal_probs"
     ];
     $scope.exam_results = [];
@@ -474,7 +472,7 @@ experimentApp.controller('ExperimentController',
         exam: true
       },
       {
-        text: `Congrats! You've finished the tutorial. Your task is to guess words for 10 different rounds. 
+        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds. 
         For the last 2 rounds, we will also ask you whether you believe your friend made a mistake, and to describe the mistake if so.
         Ready to start? Press Next to continue!`
       }
