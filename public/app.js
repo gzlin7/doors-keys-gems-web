@@ -317,160 +317,160 @@ experimentApp.controller('ExperimentController',
       [14, 3, 7, 11, 15, 1, 5, 9, 13, 4],
     ]
     $scope.instructions = [
-      {
-        text: `Welcome to our word guessing game! <br>
-               Before you begin your task, you'll complete a brief guided tutorial (~ 4 minutes) to understand the game.<br>
-               Press Next to continue.`,
-      },
-      {
-        text: `Your friend is moving blocks to spell an English word in a stack (first letter on top). You are watching and trying to guess
-               what the word is before your friend finishes spelling.
-               <br>
-               <br>
-               The word is one of the following: <b>ear</b>, <b>reap</b>, <b>pear</b>, <b>wade</b>, <b>draw</b>
-               <br>
-               <br>
-               Hit the <b>Next button</b> to watch your friend play, and try to guess the word. 
-               `,
-        image: "tutorial/demo/0.png"
-      },
-      {
-        text: ``,
-        image: "tutorial/demo/scenario-tutorial-demo.gif",
-        question: `What is the word?`,
-        options: ["pear", "reap", "ear", "wade", "draw"],
-        answer: 2
-      },
-      {
-        text: `Let's watch it again, but this time, pay attention to whether your friend <b>made a mistake</b> while spelling the word <b>ear</b>.`,
-      },
-      {
-        text: ``,
-        image: "tutorial/demo/scenario-tutorial-demo2.gif",
-        question: `Can you tell if your friend <b>made a mistake</b> while spelling the word <b>ear</b>?`,
-        options: ["No, there was no mistake", "Yes, at first they misspelled the word <b>ear</b> as <b>aer</b>"],
-        answer: 1
-      },
-      {
-        text: `Now, your task is to watch someone stacking these blocks, and with every block they 
-              move, guess which word they are trying to spell.
-              <br><br>
-              <b>How to guess?</b> <br>
-              You will be given <b>5 possible words</b>. 
-              When a block is moved, you need to <b>choose all words</b> that your friend might be trying to spell. This means you can guess <b>more than one word</b> if there are several likely choices. `
-      },
-      {
-        text: `Let's do a practice run, just so you're familiarized.`,
-      },
-      {
-        text: `First, you'll get a chance to look at the available letters and the 5 possible words.
-               Before seeing the player move any blocks, select all the words that you think
-               might be the word that the player will try to spell. `,
-        image: "tutorial/tutorial/0.png",
-        tutorial: true
-      },
-      {
-        text: `Press Next to watch the player move the first block.`,
-      },
-      {
-        text: `What do you think? If you think that <b>several</b> words are more likely than the rest, select <b>all</b> of likely words.`,
-        image: "tutorial/tutorial/0.gif",
-        tutorial: true
-      },
-      {
-        text: `Press Next to consider the next move. You may notice that the move doesn't make sense. That's fine, the person spelling the words <b>might make mistakes</b> sometimes.`
-      },
-      {
-        image: "tutorial/tutorial/1.gif",
-        question: `How would you best describe the mistake here? Keep in mind that the possible words are: <b>power, cower, crow, core, pore</b>. <br>`,
-        options: ['I don\'t think a mistake was made.', 'The player <i><b>intended</b></i> &nbsp; to stack block <b>w</b>  on block <b>e</b> , but mistakenly dropped it in the wrong location.',
-          'The player <i><b>mistakenly</b></i>&nbsp; picked up block <b>w</b>, then put it back down in a different location.'
-        ],
-        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp; In case you don\'t remember the previous move, the player stacked block e on top of block r.",
-        answer: 1
-      },
-      {
-        text: `Let's watch the move again, and make your best guess.
-        Keep in mind throughout the following tasks that the player might make mistakes, but not always.`,
-        image: "tutorial/tutorial/1b.gif",
-        tutorial: true
-      },
-      {
-        text: `The person spelling the word is fixing the mistake.`,
-        image: "tutorial/tutorial/2.gif",
-        tutorial: true
-      },
-      {
-        text: `It seems like there are two equally possible words. 
-        If that's the case please select both of them.`,
-        image: "tutorial/tutorial/3.gif",
-        tutorial: true
-      },
-      {
-        text: `Even if it seems obvious what the word is, please make sure 
-        to answer by selecting only the correct word.`,
-        image: "tutorial/tutorial/4.gif",
-        tutorial: true
-      },
-      {
-        text: `Yes, the word your friend was spelling was <b>power</b>!`,
-        image: "tutorial/tutorial/10.png",
-      },
-      {
-        text: `<b>Bonus Payment Points</b> <br>
-               As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make, based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game, and will be <b>displayed after that game</b>. 
-               <br><br>
-               Your points from all games are converted to bonus payment at a rate of <b>10 points = $1.00.</b>
-               The points system will be explained in more detail on the next page.
-               `
-      },
-      {
-        text: `<b>Bonus Payment Points</b> <br>
-               The points system works as follows:<br>
-               <b>-2.0 points</b> if none of the words you choose is correct <br>
-               <b>0.0 points</b> for saying "I Don't Know" or choosing all words<br>
-               <b>0.5 points</b> for choosing 4 words, one of which is the correct word <br>
-               <b>1.3 points</b> for choosing 3 words, one of which is the correct word <br>
-               <b>3.0 points</b> for choosing 2 words, one of which is the correct word <br>
-               <b>8.0 points</b> for choosing only the correct word 
-               <br><br>
-               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident! The point system is designed so that you <b>don't benefit from guessing when you don't know for sure</b>.`
-      },
-      {
-        text: `<b>Comprehension Check Questions</b> <br>
-               For the last part of the tutorial, we will ask 5 quick questions to check your understanding of the task. For each question, please select the best answer.`
-      },
-      {
-        text: `<b>Question 1/5:</b> What is the purpose of your task?`,
-        options: ["Spell a word by stacking blocks, out of five possible words.", "Stack blocks to spell as many words as possible.",
-          "Watch your friend spell a given word by stacking blocks, and try to guess which word they are spelling."],
-        answer: 2,
-        exam: true
-      },
-      {
-        text: `<b>Question 2/5:</b>  In a particular game, how many words is your friend actually trying to spell?`,
-        options: ["1 word", "2 words", "More than 2 words"],
-        answer: 0,
-        exam: true
-      },
-      {
-        text: `<b>Question 3/5:</b> Sometimes, you are not yet sure exactly which word your friend is trying to spell, and a few words seem likely. How many words are you allowed to guess?`,
-        options: ["Only 1 word", "Only 2 words", "As many words as I want"],
-        answer: 2,
-        exam: true
-      },
-      {
-        text: `<b>Question 4/5:</b> You're watching your friend play and <b>two</b> of the words seem likelier than the rest. What should you do?`,
-        options: ["Guess <b>one</b> of the two likely words.", "Guess <b>both</b> likely words."],
-        answer: 1,
-        exam: true
-      },
-      {
-        text: `<b>Question 5/5:</b> You're watching your friend play and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
-        options: ["Guess one or two words and hope one of them is correct.", "Select the \"I don't know\" option because I may lose bonus points from guessing incorrectly."],
-        answer: 1,
-        exam: true
-      },
+      // {
+      //   text: `Welcome to our word guessing game! <br>
+      //          Before you begin your task, you'll complete a brief guided tutorial (~ 4 minutes) to understand the game.<br>
+      //          Press Next to continue.`,
+      // },
+      // {
+      //   text: `Your friend is moving blocks to spell an English word in a stack (first letter on top). You are watching and trying to guess
+      //          what the word is before your friend finishes spelling.
+      //          <br>
+      //          <br>
+      //          The word is one of the following: <b>ear</b>, <b>reap</b>, <b>pear</b>, <b>wade</b>, <b>draw</b>
+      //          <br>
+      //          <br>
+      //          Hit the <b>Next button</b> to watch your friend play, and try to guess the word. 
+      //          `,
+      //   image: "tutorial/demo/0.png"
+      // },
+      // {
+      //   text: ``,
+      //   image: "tutorial/demo/scenario-tutorial-demo.gif",
+      //   question: `What is the word?`,
+      //   options: ["pear", "reap", "ear", "wade", "draw"],
+      //   answer: 2
+      // },
+      // {
+      //   text: `Let's watch it again, but this time, pay attention to whether your friend <b>made a mistake</b> while spelling the word <b>ear</b>.`,
+      // },
+      // {
+      //   text: ``,
+      //   image: "tutorial/demo/scenario-tutorial-demo2.gif",
+      //   question: `Can you tell if your friend <b>made a mistake</b> while spelling the word <b>ear</b>?`,
+      //   options: ["No, there was no mistake", "Yes, at first they misspelled the word <b>ear</b> as <b>aer</b>"],
+      //   answer: 1
+      // },
+      // {
+      //   text: `Now, your task is to watch someone stacking these blocks, and with every block they 
+      //         move, guess which word they are trying to spell.
+      //         <br><br>
+      //         <b>How to guess?</b> <br>
+      //         You will be given <b>5 possible words</b>. 
+      //         When a block is moved, you need to <b>choose all words</b> that your friend might be trying to spell. This means you can guess <b>more than one word</b> if there are several likely choices. `
+      // },
+      // {
+      //   text: `Let's do a practice run, just so you're familiarized.`,
+      // },
+      // {
+      //   text: `First, you'll get a chance to look at the available letters and the 5 possible words.
+      //          Before seeing the player move any blocks, select all the words that you think
+      //          might be the word that the player will try to spell. `,
+      //   image: "tutorial/tutorial/0.png",
+      //   tutorial: true
+      // },
+      // {
+      //   text: `Press Next to watch the player move the first block.`,
+      // },
+      // {
+      //   text: `What do you think? If you think that <b>several</b> words are more likely than the rest, select <b>all</b> of likely words.`,
+      //   image: "tutorial/tutorial/0.gif",
+      //   tutorial: true
+      // },
+      // {
+      //   text: `Press Next to consider the next move. You may notice that the move doesn't make sense. That's fine, the person spelling the words <b>might make mistakes</b> sometimes.`
+      // },
+      // {
+      //   image: "tutorial/tutorial/1.gif",
+      //   question: `How would you best describe the mistake here? Keep in mind that the possible words are: <b>power, cower, crow, core, pore</b>. <br>`,
+      //   options: ['I don\'t think a mistake was made.', 'The player <i><b>intended</b></i> &nbsp; to stack block <b>w</b>  on block <b>e</b> , but mistakenly dropped it in the wrong location.',
+      //     'The player <i><b>mistakenly</b></i>&nbsp; picked up block <b>w</b>, then put it back down in a different location.'
+      //   ],
+      //   footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp; In case you don\'t remember the previous move, the player stacked block e on top of block r.",
+      //   answer: 1
+      // },
+      // {
+      //   text: `Let's watch the move again, and make your best guess.
+      //   Keep in mind throughout the following tasks that the player might make mistakes, but not always.`,
+      //   image: "tutorial/tutorial/1b.gif",
+      //   tutorial: true
+      // },
+      // {
+      //   text: `The person spelling the word is fixing the mistake.`,
+      //   image: "tutorial/tutorial/2.gif",
+      //   tutorial: true
+      // },
+      // {
+      //   text: `It seems like there are two equally possible words. 
+      //   If that's the case please select both of them.`,
+      //   image: "tutorial/tutorial/3.gif",
+      //   tutorial: true
+      // },
+      // {
+      //   text: `Even if it seems obvious what the word is, please make sure 
+      //   to answer by selecting only the correct word.`,
+      //   image: "tutorial/tutorial/4.gif",
+      //   tutorial: true
+      // },
+      // {
+      //   text: `Yes, the word your friend was spelling was <b>power</b>!`,
+      //   image: "tutorial/tutorial/10.png",
+      // },
+      // {
+      //   text: `<b>Bonus Payment Points</b> <br>
+      //          As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make, based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game, and will be <b>displayed after that game</b>. 
+      //          <br><br>
+      //          Your points from all games are converted to bonus payment at a rate of <b>10 points = $1.00.</b>
+      //          The points system will be explained in more detail on the next page.
+      //          `
+      // },
+      // {
+      //   text: `<b>Bonus Payment Points</b> <br>
+      //          The points system works as follows:<br>
+      //          <b>-2.0 points</b> if none of the words you choose is correct <br>
+      //          <b>0.0 points</b> for saying "I Don't Know" or choosing all words<br>
+      //          <b>0.5 points</b> for choosing 4 words, one of which is the correct word <br>
+      //          <b>1.3 points</b> for choosing 3 words, one of which is the correct word <br>
+      //          <b>3.0 points</b> for choosing 2 words, one of which is the correct word <br>
+      //          <b>8.0 points</b> for choosing only the correct word 
+      //          <br><br>
+      //          <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident! The point system is designed so that you <b>don't benefit from guessing when you don't know for sure</b>.`
+      // },
+      // {
+      //   text: `<b>Comprehension Check Questions</b> <br>
+      //          For the last part of the tutorial, we will ask 5 quick questions to check your understanding of the task. For each question, please select the best answer.`
+      // },
+      // {
+      //   text: `<b>Question 1/5:</b> What is the purpose of your task?`,
+      //   options: ["Spell a word by stacking blocks, out of five possible words.", "Stack blocks to spell as many words as possible.",
+      //     "Watch your friend spell a given word by stacking blocks, and try to guess which word they are spelling."],
+      //   answer: 2,
+      //   exam: true
+      // },
+      // {
+      //   text: `<b>Question 2/5:</b>  In a particular game, how many words is your friend actually trying to spell?`,
+      //   options: ["1 word", "2 words", "More than 2 words"],
+      //   answer: 0,
+      //   exam: true
+      // },
+      // {
+      //   text: `<b>Question 3/5:</b> Sometimes, you are not yet sure exactly which word your friend is trying to spell, and a few words seem likely. How many words are you allowed to guess?`,
+      //   options: ["Only 1 word", "Only 2 words", "As many words as I want"],
+      //   answer: 2,
+      //   exam: true
+      // },
+      // {
+      //   text: `<b>Question 4/5:</b> You're watching your friend play and <b>two</b> of the words seem likelier than the rest. What should you do?`,
+      //   options: ["Guess <b>one</b> of the two likely words.", "Guess <b>both</b> likely words."],
+      //   answer: 1,
+      //   exam: true
+      // },
+      // {
+      //   text: `<b>Question 5/5:</b> You're watching your friend play and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
+      //   options: ["Guess one or two words and hope one of them is correct.", "Select the \"I don't know\" option because I may lose bonus points from guessing incorrectly."],
+      //   answer: 1,
+      //   exam: true
+      // },
       {
         text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds. 
         For the last 2 rounds, we will also ask you whether you believe your friend made a mistake, and to describe the mistake if so.

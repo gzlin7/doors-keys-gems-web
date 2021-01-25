@@ -85,6 +85,27 @@
       margin-right: 10px;
     }
 
+    .slider {
+        width: 100%; /* Full-width */
+      }
+
+    .sliderticks {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 8pt;
+    }
+    .radio {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 4px;
+    }
+
+    .question {
+      padding-top: 10%;
+    }
+
     .controls {
       float: right;
       padding: 10px;
@@ -201,10 +222,10 @@
         <button class="button" ng-click="reload_gif()"
           ng-show="section == 'stimuli' && part_id >= 0 || section == 'instructions' && instruction_has_image()">
           Replay Move </button>
-        <button class="button" ng-click="advance()" ng-show="section == 'stimuli' && part_id < 0"
+        <!-- <button class="button" ng-click="advance()" ng-show="section == 'stimuli' && part_id < 0"
           ng-disabled="valid_mistake == false && last_two_scenarios">
           Next >>
-        </button>
+        </button> -->
         <button class="button" ng-click="advance()" ng-hide="section == 'stimuli' && part_id < 0" ng-disabled="section == 'endscreen' || 
           valid_goal == false && (section == 'stimuli' && part_id >= 0 || is_tutorial()) || 
           valid_exam == false && section == 'instructions' && is_exam() ||
@@ -221,42 +242,65 @@
         ng-bind-html="instructions[inst_id].text">
       </p>
       <!-- Note: No instruction should have both tutorial and comprehension questions -->
-      <!-- Questions for goals-->
-      <div ng-show="section == 'stimuli' && part_id >= 0 || is_tutorial()" class="hidden" id="question">
-        <p><b>Which of the words below is the player trying to spell? </b> </p>
-        <p>Select <b>at least one guess</b> to
-          continue. If no guesses seem more likely than the others, select the "I don't know" option.
-        </p>
+			<!-- Captioned Instructions -->
+			<p ng-show="section == 'instructions' && instruction_has_image()"
+				 class="captions" ng-bind-html="instructions[inst_id].text">
+			</p>
+			<!-- Questions -->
+			<div class="question" ng-show="section == 'stimuli' && part_id >= 0 || is_tutorial()">
+			<b>Which gem is the most likely goal?</b>
+			<br>
+			<div class="radio">
+				<label style="color:#D41159">
+					<input class="checkboxtext" type="radio" ng-model="response.goal" value=0 />Red</label>
+				<label style="color:#FFC20A">
+					<input class="checkboxtext" type="radio" ng-model="response.goal" value=1 />Yellow</label>
+				<label style="color:#1A85FF">
+					<input class="checkboxtext" type="radio" ng-model="response.goal" value=2 />Blue</label>
+				<label style="color:black">
+					<input type="radio" ng-model="response.goal" value=-1 />
+						All equally likely
+				</label>
+			</div>
+			<br>
 
-        <ul class="no-bullets">
-          <li><input type="checkbox" ng-model="response.checked[0]" ng-change="validate_goal()"
-              ng-disabled="response.dontKnow">
-            <b class='checkboxtext'>{{possible_goals[0]}}</b>
-          </li>
-          <li><input type="checkbox" ng-model="response.checked[1]" ng-change="validate_goal()"
-              ng-disabled="response.dontKnow">
-            <b class='checkboxtext'>{{possible_goals[1]}}</b>
-          </li>
-          <li><input type="checkbox" ng-model="response.checked[2]" ng-change="validate_goal()"
-              ng-disabled="response.dontKnow">
-            <b class='checkboxtext'>{{possible_goals[2]}}</b>
-          </li>
-          <li><input type="checkbox" ng-model="response.checked[3]" ng-change="validate_goal()"
-              ng-disabled="response.dontKnow">
-            <b class='checkboxtext'>{{possible_goals[3]}}</b>
-          </li>
-          <li><input type="checkbox" ng-model="response.checked[4]" ng-change="validate_goal()"
-              ng-disabled="response.dontKnow">
-            <b class='checkboxtext'>{{possible_goals[4]}}</b>
-          </li>
-          <br>
-          <li><input type="checkbox" ng-model="response.dontKnow" ng-change="toggle_dontknow()">
-            <i class='checkboxtext'>I don't know</i>
-          </li>
-        </ul>
+			<div ng-show="response.goal != null && response.goal >= 0">
+			<b>How likely is the
+				<span ng-style="other_color(response.goal, 1)">
+					{{other_goal(response.goal, 1)}}
+				</span> gem in comparison?
+			</b>
+			<br>
+      <input type="range" min="0" max="100" step="25" list="ticks"
+						 class="slider" ng-model="response.relprob[0]">
+      <datalist id="ticks" class="sliderticks">
+        <option value="0" label="Not at all"></option>
+        <option value="25" label="1/4"></option>
+        <option value="50" label="Half as likely"></option>
+        <option value="75" label="3/4"></option>
+        <option value="100" label="Equally"></option>
+      </datalist>
+		</div>
+		<br>
 
-        <!-- <button class="check-all" ng-click="check_all()">All Equally Likely</button> -->
-      </div>
+		<div ng-show="response.goal != null && response.goal >= 0">
+			<b>How likely is the
+				<span ng-style="other_color(response.goal, 2)">
+					{{other_goal(response.goal, 2)}}
+				</span> gem in comparison?
+			</b>
+			<br>
+			<input type="range" min="0" max="100" step="25" list="ticks"
+						 class="slider" ng-model="response.relprob[1]">
+			<datalist id="ticks" class="sliderticks">
+				<option value="0" label="Not at all"></option>
+				<option value="25" label="1/4"></option>
+				<option value="50" label="Half as likely"></option>
+				<option value="75" label="3/4"></option>
+				<option value="100" label="Equally"></option>
+			</datalist>
+		</div>
+    </div>
 
       <!-- Comprehension questions -->
       <div ng-show="section == 'instructions' && instruction_has_question()" class="comprehension_question">
