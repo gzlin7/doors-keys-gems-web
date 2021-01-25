@@ -95,6 +95,7 @@
       width: 100%;
       font-size: 8pt;
     }
+
     .radio {
       display: flex;
       justify-content: space-between;
@@ -222,16 +223,16 @@
         <button class="button" ng-click="reload_gif()"
           ng-show="section == 'stimuli' && part_id >= 0 || section == 'instructions' && instruction_has_image()">
           Replay Move </button>
-        <!-- <button class="button" ng-click="advance()" ng-show="section == 'stimuli' && part_id < 0"
+        <button class="button" ng-click="advance()" ng-show="section == 'stimuli' && part_id < 0"
           ng-disabled="valid_mistake == false && last_two_scenarios">
           Next >>
-        </button> -->
+        </button>
         <button class="button" ng-click="advance()" ng-hide="section == 'stimuli' && part_id < 0" ng-disabled="section == 'endscreen' || 
-          valid_goal == false && (section == 'stimuli' && part_id >= 0 || is_tutorial()) || 
           valid_exam == false && section == 'instructions' && is_exam() ||
           valid_comprehension == false && section == 'instructions' && instruction_has_question()">
           Next >>
         </button>
+        <!-- valid_goal == false && (section == 'stimuli' && part_id >= 0 || is_tutorial()) ||  -->
       </div>
 
     </div>
@@ -252,14 +253,14 @@
 			<br>
 			<div class="radio">
 				<label style="color:#D41159">
-					<input class="checkboxtext" type="radio" ng-model="response.goal" value=0 />Red</label>
+					<input  type="radio" ng-model="response.goal" value=0 /><span class="checkboxtext">Red</span></label>
 				<label style="color:#FFC20A">
-					<input class="checkboxtext" type="radio" ng-model="response.goal" value=1 />Yellow</label>
+					<input class="checkboxtext" type="radio" ng-model="response.goal" value=1 /><span class="checkboxtext">Yellow</span></label>
 				<label style="color:#1A85FF">
-					<input class="checkboxtext" type="radio" ng-model="response.goal" value=2 />Blue</label>
+					<input class="checkboxtext" type="radio" ng-model="response.goal" value=2 /><span class="checkboxtext">Blue</span></label>
 				<label style="color:black">
 					<input type="radio" ng-model="response.goal" value=-1 />
-						All equally likely
+						<span class="checkboxtext">All equally likely</span>
 				</label>
 			</div>
 			<br>
