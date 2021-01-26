@@ -366,7 +366,12 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `Let's watch it again, but this time, pay attention to whether your friend 
-              <b>made a mistake</b> while playing.`,
+              <b>made a mistake</b> while playing.
+              <br> <br>
+              Hit Next to continue.`,
+        image: "tutorial/demo/0.png",
+        tutorial: true, 
+        questions_show: false
       },
       {
         text: ``,
@@ -422,7 +427,9 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `You may soon notice that some of the player's moves don't make sense. 
-              That's fine, the person playing the game <b>might make mistakes</b> sometimes.`,
+              That's fine, the person playing the game <b>might make mistakes</b> sometimes.
+              <br> <br>
+              Press Next to see the next series of moves.`,
         image: "tutorial/tutorial/2.png",
         tutorial: true,
         questions_show: false
@@ -430,7 +437,7 @@ experimentApp.controller('ExperimentController',
       {
         image: "tutorial/tutorial/2.gif",
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
-        options: ['I don\'t think a mistake was made.', 'The player wants the red gem but has <i><b>mistakenly</b></i> &nbsp; picked up a key and used it to unlock a door',
+        options: ['I don\'t think a mistake was made.', 'The player wants the red gem but has <i><b>mistakenly</b></i> &nbsp;picked up a key and used it to unlock a door',
           'The player wants the blue gem but has used the key to open the <i><b>wrong</b></i>&nbsp; door and now they are out of keys and can\'t reach their target gem'
         ],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
@@ -447,7 +454,7 @@ experimentApp.controller('ExperimentController',
               <br><br>
               Notice that even though the blue gem was the true goal, the player couldn't get it and the game has ended. 
               This might happen in some of the following tasks, but keep in mind that you are always trying to guess which gem the player is 
-              <i><b>trying</b></i>&nbsp; to collect`,
+              <i><b>trying</b></i>&nbsp; to collect.`,
         image: "tutorial/tutorial/3.png",
       },
       {
@@ -472,20 +479,20 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Watch your friend play and decide for them which gem to collect", "Move on the map and collect gems.",
+        options: ["Watch your friend play and decide for them which gem to collect.", "Move on the map and collect gems.",
           "Watch your friend play and try to guess which gem they are trying to collect."],
         answer: 2,
         exam: true
       },
       {
-        text: `<b>Question 2/4:</b>  In a particular game, how many gems is your friend actually trying to collect?`,
+        text: `<b>Question 2/4:</b>  In a game, how many gems is your friend trying to collect?`,
         options: ["1 gem", "2 gems", "As many as possible"],
         answer: 0,
         exam: true
       },
       {
         text: `<b>Question 3/4:</b> Can your friend change their target gem while they're playing?`,
-        options: ["Yes they can", "No they have a specific target gem at the begining of the game and they can't change it"],
+        options: ["Yes, they can", "No, they have a specific target gem at the begining of the game and can't change it"],
         answer: 1,
         exam: true
       },

@@ -227,7 +227,8 @@
           ng-disabled="valid_mistake == false && last_two_scenarios">
           Next >>
         </button>
-        <button class="button" ng-click="advance()" ng-hide="section == 'stimuli' && part_id < 0" ng-disabled="section == 'endscreen' || 
+        <button class="button" ng-click="advance()" ng-hide="section == 'stimuli' && part_id < 0" 
+        ng-disabled="section == 'endscreen' || 
           valid_exam == false && section == 'instructions' && is_exam() ||
           valid_comprehension == false && section == 'instructions' && instruction_has_question()">
           Next >>
