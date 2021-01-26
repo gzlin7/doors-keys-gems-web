@@ -569,12 +569,12 @@ experimentApp.controller('ExperimentController',
       },
       {
         "trial": 0,
-        "times": [1, 2, 3, 4, 5, 6, 7, 8],
+        "times": [1, 2, 3, 4, 5, 6, 7],
         "name": "scenario_1_4",
         "optimal": true,
         "goal": 2,
         "problem": 1,
-        "length": 8,
+        "length": 7,
         "images": [
           "stimuli/1/4/0.png",
           "stimuli/1/4/0.gif",
@@ -582,8 +582,7 @@ experimentApp.controller('ExperimentController',
           "stimuli/1/4/2.gif",
           "stimuli/1/4/3.gif",
           "stimuli/1/4/4.gif",
-          "stimuli/1/4/5.gif",
-          "stimuli/1/4/6.gif",
+          "stimuli/1/4/5.gif"
         ]
       },
       {
@@ -634,19 +633,18 @@ experimentApp.controller('ExperimentController',
       },
       {
         "trial": 0,
-        "times": [1, 2, 3, 4, 5, 6],
+        "times": [1, 2, 3, 4, 5],
         "name": "scenario_2_4",
         "optimal": true,
         "goal": 1,
         "problem": 2,
-        "length": 6,
+        "length": 5,
         "images": [
           "stimuli/2/4/0.png",
           "stimuli/2/4/0.gif",
           "stimuli/2/4/1.gif",
           "stimuli/2/4/2.gif",
-          "stimuli/2/4/3.gif",
-          "stimuli/2/4/4.gif"
+          "stimuli/2/4/3.gif"
         ]
       },
       {
@@ -706,12 +704,12 @@ experimentApp.controller('ExperimentController',
       },
       {
         "trial": 0,
-        "times": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "times": [1, 2, 3, 4, 5, 6, 7, 8, 9],
         "name": "scenario_3_4",
         "optimal": true,
         "goal": 2,
         "problem": 3,
-        "length": 10,
+        "length": 9,
         "images": [
           "stimuli/3/4/0.png",
           "stimuli/3/4/0.gif",
@@ -721,8 +719,7 @@ experimentApp.controller('ExperimentController',
           "stimuli/3/4/4.gif",
           "stimuli/3/4/5.gif",
           "stimuli/3/4/6.gif",
-          "stimuli/3/4/7.gif",
-          "stimuli/3/4/8.gif"
+          "stimuli/3/4/7.gif"
         ]
       },
       {
