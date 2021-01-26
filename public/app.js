@@ -129,7 +129,6 @@ experimentApp.controller('ExperimentController',
         $scope.section = "stimuli";
         $scope.stim_id = 0;
         $scope.part_id = 0;
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
         // get time of first experiment
         if (start_time == undefined) {
@@ -185,8 +184,6 @@ experimentApp.controller('ExperimentController',
         // Advance to first part
         $scope.part_id = $scope.part_id + 1;
         $scope.ratings = [];
-        // set possible goals based on stimuli json
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
       } else if ($scope.part_id < $scope.stimuli_set[$scope.stim_id].length) {
         // Advance to next part
@@ -237,8 +234,6 @@ experimentApp.controller('ExperimentController',
           "goal_probs_0": probs[0],
           "goal_probs_1": probs[1],
           "goal_probs_2": probs[2],
-          "goal_probs_3": probs[3],
-          "goal_probs_4": probs[4],
           "true_goal_probs": probs[$scope.true_goal],
           "reward_score": $scope.reward_score
         }
@@ -250,8 +245,6 @@ experimentApp.controller('ExperimentController',
           "goal_probs_0": probs[0],
           "goal_probs_1": probs[1],
           "goal_probs_2": probs[2],
-          "goal_probs_3": probs[3],
-          "goal_probs_4": probs[4],
           "true_goal_probs": probs[$scope.true_goal],
           "reward_score": $scope.reward_score
         }
@@ -275,8 +268,7 @@ experimentApp.controller('ExperimentController',
       // unhide question sliders- workaround for slider initial flashing
       document.getElementById("question").classList.remove("hidden");
     };
-    $scope.rating_labels = ["Very Unlikely", "Maybe", "Very Likely"];
-    $scope.possible_goals = ["power", "cower", "crow", "core", "pore"];
+    $scope.possible_goals = ["red", "yellow", "blue"];
     $scope.true_goal = 0
     $scope.reward_score = 0;
     $scope.bonus_points = 0;
@@ -318,62 +310,61 @@ experimentApp.controller('ExperimentController',
     ]
     $scope.instructions = [
       // {
-      //   text: `Welcome to our word guessing game! <br>
+      //   text: `Welcome to our gem guessing game! <br>
       //          Before you begin your task, you'll complete a brief guided tutorial (~ 4 minutes) to understand the game.<br>
       //          Press Next to continue.`,
       // },
       // {
-      //   text: `Your friend is moving blocks to spell an English word in a stack (first letter on top). You are watching and trying to guess
-      //          what the word is before your friend finishes spelling.
+      //   text: `Your friend is trying to pick up a gem in this game. You are watching and trying to guess
+      //          which gem your friend is trying to pick up: red, yellow, or blue.
       //          <br>
       //          <br>
-      //          The word is one of the following: <b>ear</b>, <b>reap</b>, <b>pear</b>, <b>wade</b>, <b>draw</b>
-      //          <br>
-      //          <br>
-      //          Hit the <b>Next button</b> to watch your friend play, and try to guess the word. 
+      //          Hit the <b>Next button</b> to watch your friend play, and try to guess the gem. 
       //          `,
       //   image: "tutorial/demo/0.png"
       // },
       // {
       //   text: ``,
       //   image: "tutorial/demo/scenario-tutorial-demo.gif",
-      //   question: `What is the word?`,
-      //   options: ["pear", "reap", "ear", "wade", "draw"],
+      //   question: `Which gem is most likely goal?`,
+      //   options: ["red", "yellow", "blue"],
       //   answer: 2
       // },
       // {
-      //   text: `Let's watch it again, but this time, pay attention to whether your friend <b>made a mistake</b> while spelling the word <b>ear</b>.`,
+      //   text: `Let's watch it again, but this time, pay attention to whether your friend <b>made a mistake</b> while trying to get the <b>x</b> gem.`,
+      //   image: "tutorial/demo/0.png",
+      //   tutorial: true,
+      //   questions_show: false
       // },
       // {
       //   text: ``,
       //   image: "tutorial/demo/scenario-tutorial-demo2.gif",
-      //   question: `Can you tell if your friend <b>made a mistake</b> while spelling the word <b>ear</b>?`,
+      //   question: `Can you tell if your friend <b>made a mistake</b> while getting the <b>x</b> gem?`,
       //   options: ["No, there was no mistake", "Yes, at first they misspelled the word <b>ear</b> as <b>aer</b>"],
       //   answer: 1
       // },
       // {
-      //   text: `Now, your task is to watch someone stacking these blocks, and with every block they 
-      //         move, guess which word they are trying to spell.
+      //   text: `Now, your task is to watch someone play the game, and after a series of actions, 
+      //          guess which gem they are most likely trying to obtain.
       //         <br><br>
       //         <b>How to guess?</b> <br>
-      //         You will be given <b>5 possible words</b>. 
-      //         When a block is moved, you need to <b>choose all words</b> that your friend might be trying to spell. This means you can guess <b>more than one word</b> if there are several likely choices. `
+      //         You will be given <b>3 possible gems</b>. 
+      //         When the player moves, you need to choose the gem that is the <b>most likely</b> goal. `
       // },
       // {
       //   text: `Let's do a practice run, just so you're familiarized.`,
       // },
       // {
-      //   text: `First, you'll get a chance to look at the available letters and the 5 possible words.
-      //          Before seeing the player move any blocks, select all the words that you think
-      //          might be the word that the player will try to spell. `,
+      //   text: `First, you'll get a chance to look at the game layout.
+      //          Before seeing the player move, choose which gem you think is the most likely. `,
       //   image: "tutorial/tutorial/0.png",
       //   tutorial: true
       // },
       // {
-      //   text: `Press Next to watch the player move the first block.`,
+      //   text: `Press Next to watch the player move.`,
       // },
       // {
-      //   text: `What do you think? If you think that <b>several</b> words are more likely than the rest, select <b>all</b> of likely words.`,
+      //   text: `What do you think? If you think that <b>all</b> gems are equally likely, select <b>all equally likely</b>.`,
       //   image: "tutorial/tutorial/0.gif",
       //   tutorial: true
       // },
