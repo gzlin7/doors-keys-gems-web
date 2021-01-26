@@ -243,12 +243,8 @@
         ng-bind-html="instructions[inst_id].text">
       </p>
       <!-- Note: No instruction should have both tutorial and comprehension questions -->
-			<!-- Captioned Instructions -->
-			<p ng-show="section == 'instructions' && instruction_has_image()"
-				 class="captions" ng-bind-html="instructions[inst_id].text">
-			</p>
 			<!-- Questions -->
-			<div class="question" ng-show="section == 'stimuli' && part_id >= 0 || is_tutorial()">
+			<div class="question" ng-show="section == 'stimuli' && part_id >= 0 || (is_tutorial() && !hide_questions())">
 			<b>Which gem is the most likely goal?</b>
 			<br>
 			<div class="radio">
