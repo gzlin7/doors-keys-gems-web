@@ -274,6 +274,20 @@ experimentApp.controller('ExperimentController',
     $scope.bonus_points = 0;
     $scope.tutorial_score = 0;
 
+    $scope.gem_colors = [{color:"#D41159"}, {color:"#FFC20A"}, {color:"#1A85FF"}];
+    $scope.other_goal = function(i, offset) {
+      return ["red", "yellow", "blue"][(i + offset)%3];
+    };
+    $scope.other_color = function(i, offset) {
+      return $scope.gem_colors[(i + offset)%3];
+    };
+    $scope.true_goal = function(id) {
+      return ["red", "yellow", "blue"][$scope.stimuli[id].goal];
+    };
+    $scope.true_color = function(id) {
+      return $scope.gem_colors[$scope.stimuli[id].goal];
+    };
+    
     $scope.instruction_has_image = function () {
       return $scope.instructions[$scope.inst_id].image != null
     };
