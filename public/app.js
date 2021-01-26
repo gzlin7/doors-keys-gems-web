@@ -129,7 +129,6 @@ experimentApp.controller('ExperimentController',
         $scope.section = "stimuli";
         $scope.stim_id = 0;
         $scope.part_id = 0;
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
         // get time of first experiment
         if (start_time == undefined) {
@@ -185,8 +184,6 @@ experimentApp.controller('ExperimentController',
         // Advance to first part
         $scope.part_id = $scope.part_id + 1;
         $scope.ratings = [];
-        // set possible goals based on stimuli json
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
       } else if ($scope.part_id < $scope.stimuli_set[$scope.stim_id].length) {
         // Advance to next part
@@ -237,8 +234,6 @@ experimentApp.controller('ExperimentController',
           "goal_probs_0": probs[0],
           "goal_probs_1": probs[1],
           "goal_probs_2": probs[2],
-          "goal_probs_3": probs[3],
-          "goal_probs_4": probs[4],
           "true_goal_probs": probs[$scope.true_goal],
           "reward_score": $scope.reward_score
         }
@@ -250,8 +245,6 @@ experimentApp.controller('ExperimentController',
           "goal_probs_0": probs[0],
           "goal_probs_1": probs[1],
           "goal_probs_2": probs[2],
-          "goal_probs_3": probs[3],
-          "goal_probs_4": probs[4],
           "true_goal_probs": probs[$scope.true_goal],
           "reward_score": $scope.reward_score
         }
@@ -275,13 +268,26 @@ experimentApp.controller('ExperimentController',
       // unhide question sliders- workaround for slider initial flashing
       document.getElementById("question").classList.remove("hidden");
     };
-    $scope.rating_labels = ["Very Unlikely", "Maybe", "Very Likely"];
-    $scope.possible_goals = ["power", "cower", "crow", "core", "pore"];
+    $scope.possible_goals = ["red", "yellow", "blue"];
     $scope.true_goal = 0
     $scope.reward_score = 0;
     $scope.bonus_points = 0;
     $scope.tutorial_score = 0;
 
+    $scope.gem_colors = [{color:"#D41159"}, {color:"#FFC20A"}, {color:"#1A85FF"}];
+    $scope.other_goal = function(i, offset) {
+      return ["red", "yellow", "blue"][(i + offset)%3];
+    };
+    $scope.other_color = function(i, offset) {
+      return $scope.gem_colors[(i + offset)%3];
+    };
+    $scope.true_goal = function(id) {
+      return ["red", "yellow", "blue"][$scope.stimuli[id].goal];
+    };
+    $scope.true_color = function(id) {
+      return $scope.gem_colors[$scope.stimuli[id].goal];
+    };
+    
     $scope.instruction_has_image = function () {
       return $scope.instructions[$scope.inst_id].image != null
     };
