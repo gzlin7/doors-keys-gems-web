@@ -263,9 +263,10 @@
 
 			<div ng-show="response.goal != null && response.goal >= 0">
 			<b>How likely is the
-				<span ng-style="other_color(response.goal, 1)">
-					{{other_goal(response.goal, 1)}}
-				</span> gem in comparison?
+          <span ng-style="other_color(response.goal, 1)"> {{other_goal(response.goal, 1)}} </span> 
+          gem in comparison to the 
+          <span ng-style="chosen_color(response.goal)"> {{chosen_goal(response.goal)}} </span>
+          gem?
 			</b>
 			<br>
       <input type="range" min="0" max="100" step="25" value="0" list="ticks"
@@ -282,9 +283,10 @@
 
 		<div ng-show="response.goal != null && response.goal >= 0">
 			<b>How likely is the
-				<span ng-style="other_color(response.goal, 2)">
-					{{other_goal(response.goal, 2)}}
-				</span> gem in comparison?
+        <span ng-style="other_color(response.goal, 2)"> {{other_goal(response.goal, 2)}} </span> 
+        gem in comparison to the 
+        <span ng-style="chosen_color(response.goal)"> {{chosen_goal(response.goal)}} </span>
+        gem?
 			</b>
 			<br>
 			<input type="range" min="0" max="100" step="25" value="0" list="ticks"

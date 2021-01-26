@@ -287,7 +287,13 @@ experimentApp.controller('ExperimentController',
     $scope.true_color = function(id) {
       return $scope.gem_colors[$scope.stimuli[id].goal];
     };
-    
+    $scope.chosen_goal = function(i) {
+      return ["red", "yellow", "blue"][i];
+    }
+    $scope.chosen_color = function(id) {
+      return $scope.gem_colors[id];
+    }
+
     $scope.instruction_has_image = function () {
       return $scope.instructions[$scope.inst_id].image != null
     };
