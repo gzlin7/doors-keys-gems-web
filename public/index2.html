@@ -85,6 +85,28 @@
       margin-right: 10px;
     }
 
+    .slider {
+        width: 100%; /* Full-width */
+      }
+
+    .sliderticks {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 8pt;
+    }
+
+    .radio {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 4px;
+    }
+
+    .question {
+      padding-top: 10%;
+    }
+
     .controls {
       float: right;
       padding: 10px;
@@ -135,7 +157,6 @@
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-sanitize.js"></script>
-  <script src="lib/preloader.js"></script>
   <script src="app.js"></script>
 </head>
 
@@ -153,9 +174,11 @@
         </li>
       </ul>
       </p>
-      <img ng-show="section == 'instructions' && instruction_has_image()" ng-src="{{instructions[inst_id].image}}"
-        class="stimulus" id="instruction-img">
+      <img imageonload ng-show="loaded && section == 'instructions' && instruction_has_image()"
+        ng-src="{{instructions[inst_id].image}}" class="stimulus" id="instruction-img">
       <p class="section_title" ng-show="section == 'instructions' && instruction_has_image()">Tutorial</p>
+      <img ng-show="!loaded && section == 'instructions' && instruction_has_image()" ng-src="blank.png"
+        class="stimulus">
       <!-- Stimuli -->
       <p ng-show="section == 'stimuli' && part_id < 0" class="full-row">
         The true goal was
@@ -165,16 +188,16 @@
         <!-- Mistake text box -->
         <span ng-show="section == 'stimuli' && part_id < 0 && last_two_scenarios">
           Did your friend make a mistake while trying to spell
-          <span ng-style="{color:'blue'}">{{possible_goals[stimuli_set[stim_id-1].goal]}}</span>? Make your best guess.
+          <span ng-style="{color:'blue'}">{{possible_goals[stimuli_set[stim_id-1].goal]}}</span>?
           <br>
           <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()"
             value="yes">
           <span class="checkboxtext">Yes</span>
           <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()" value="no">
           <span class="checkboxtext">No</span>
-          <!-- <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()"
+          <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()"
             value="not sure">
-          <span class="checkboxtext">Not Sure</span> -->
+          <span class="checkboxtext">Not Sure</span>
           <br>
           <span ng-show="mistake_yes_no == 'yes'"> Please provide a <b>brief description of the
               mistake</b> in the box below to continue.
@@ -184,28 +207,13 @@
           </span>
         </span>
       </p>
-      <img ng-show="section == 'stimuli' && part_id >= 0" ng-src="{{stimuli_set[stim_id].images[part_id]}}"
-        class="stimulus" id="stimulus-img">
-      <div class="section_title" ng-show="section == 'stimuli' && part_id >= 0"> Round {{stim_id +
-        1}}/{{stimuli_set_length}}</div>
-      <!-- Break screen before last 2 stimuli -->
-      <p ng-show="section == 'breakscreen'" class="full-row">
-        Almost done! In these last two rounds, we're adding a bonus question: At the end of each round, you'll be asked
-        to judge <b>whether your friend made a mistake while trying to spell the word.</b>
-        <br> <br>
-        You'll be asked to judge <b>yes</b> or <b>no</b>, and provide a brief text description of the mistake, if any.
-        For each
-        correct answer, you'll get a bonus of <b>5 points ($0.50)</b>, so pay attention while you
-        step through the rounds!
-        <br> <br>
-        Hit Next to continue.
-      </p>
+      <img imageonload ng-show="loaded && section == 'stimuli' && part_id >= 0"
+        ng-src="{{stimuli_set[stim_id].images[part_id]}}" class="stimulus" id="stimulus-img">
+      <img ng-show="!loaded && section == 'stimuli' && part_id >= 0" ng-src="blank.png" class="stimulus">
+      <div class="section_title" ng-show="section == 'stimuli' && part_id >= 0"> Round {{stim_id + 1}}/10</div>
       <!-- Endscreen -->
       <p ng-show="section == 'endscreen'" class="full-row">
-        You're all done! You scored {{total_reward}} points in total, equal to ${{total_payment}} bonus payment.
-        <br><br>
-        Thank you for your time :)
-        <br><br>
+        You're all done! <br> Thank you for your time :) <br>
         Your survey code is {{user_id}}
       </p>
       <!-- </div> -->
@@ -218,8 +226,9 @@
           ng-disabled="valid_mistake == false && last_two_scenarios">
           Next >>
         </button>
-        <button class="button" ng-click="advance()" ng-hide="section == 'stimuli' && part_id < 0" ng-disabled="section == 'endscreen' ||
-          (valid_goal == false && (section == 'stimuli' && part_id >= 0 || is_tutorial()) && !hide_questions())  ||
+        <button class="button" ng-click="advance()" ng-hide="section == 'stimuli' && part_id < 0" 
+        ng-disabled="section == 'endscreen' || 
+          (valid_goal == false && (section == 'stimuli' && part_id >= 0 || is_tutorial()) && !hide_questions())  || 
           (valid_exam == false && section == 'instructions' && is_exam()) ||
           (valid_comprehension == false && section == 'instructions' && instruction_has_question())">
           Next >>
@@ -234,27 +243,29 @@
         ng-bind-html="instructions[inst_id].text">
       </p>
       <!-- Note: No instruction should have both tutorial and comprehension questions -->
-      <!-- Questions for goals-->
-      <div ng-show="(section == 'stimuli' && part_id >= 0) || (is_tutorial() && !hide_questions())" class="hidden"
-        id="question" class="question">
-        <br><br>
-        <p><b>Which gem or gems are the most likely goal? </b> </p>
+			<!-- Questions for goals-->
+      <div ng-show="(section == 'stimuli' && part_id >= 0) || (is_tutorial() && !hide_questions())" class="hidden" id="question">
+        <p><b>Which gems are the most likely goal? </b> </p>
+        <p>Select <b>at least one guess</b> to
+          continue. If no guesses seem more likely than the others, select the "I don't know" option.
+        </p>
+
         <ul class="no-bullets">
           <li><input type="checkbox" ng-model="response.checked[0]" ng-change="validate_goal()"
               ng-disabled="response.dontKnow">
-            <b class='checkboxtext' style="color: #D41159">Red</b>
+            <b class='checkboxtext' style="color: #D41159">{{possible_goals[0]}}</b>
           </li>
           <li><input type="checkbox" ng-model="response.checked[1]" ng-change="validate_goal()"
               ng-disabled="response.dontKnow">
-            <b class='checkboxtext' style="color: #FFC20A">Yellow</b>
+            <b class='checkboxtext' style="color: #FFC20A">{{possible_goals[1]}}</b>
           </li>
           <li><input type="checkbox" ng-model="response.checked[2]" ng-change="validate_goal()"
               ng-disabled="response.dontKnow">
-            <b class='checkboxtext' style="color: #1A85FF">Blue</b>
+            <b class='checkboxtext' style="color: #1A85FF">{{possible_goals[2]}}</b>
           </li>
           <br>
           <li><input type="checkbox" ng-model="response.dontKnow" ng-change="toggle_dontknow()">
-            <i class='checkboxtext'>All Equally Likely</i>
+            <i class='checkboxtext'>I don't know</i>
           </li>
         </ul>
 
