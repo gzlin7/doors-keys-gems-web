@@ -337,32 +337,34 @@ experimentApp.controller('ExperimentController',
               The rules of the game are as follows: 
               <br>
               <ul>
-              <li> The player decides on a target gem at the begining of the game.</li>
-              <li> The player does not change the target gem along the way.</li>
+              <li> The player decides on a gem to collect at the begining of the game.</li>
+              <li> The target gem doesn't change along the way.</li>
               <li> The player can only move on the white squares.</li>
+              <li> The player have a full view of the map at all times.</li>
               <li> Keys are used to unlock doors.</li>
               <li> The player can pick up multiple keys.</li>
               <li> A key can only be used once.</li>
+              <li> If the player fails to collect the target gem the game ends.</li>
               </ul>
               You are watching and trying to figure out which gem your friend is trying to collect. 
               <br><br>
               Hit the <b>Next button</b> to watch your friend play. 
               `,
-        image: "tutorial/demo/0.png"
+        image: "tutorial/demo/0.gif"
       },
       {
         text: ``,
         image: "tutorial/demo/scenario-tutorial-demo.gif",
         question: `Can you figure our which gem your friend is trying to collect?`,
         options: ["Red", "Yellow", "Blue"],
-        answer: 2
+        answer: 1
       },
       {
         text: `Let's watch it again, but this time, pay attention to whether your friend 
               <b>made a mistake</b> while playing.
               <br> <br>
               Hit Next to continue.`,
-        image: "tutorial/demo/0.png",
+        image: "tutorial/demo/0.gif",
         tutorial: true, 
         questions_show: false
       },
@@ -371,28 +373,28 @@ experimentApp.controller('ExperimentController',
         image: "tutorial/demo/scenario-tutorial-demo.gif",
         question: `Can you tell if your friend <b>made a mistake</b> while playing?`,
         options: ["No, there was no mistake", 
-                  "Yes, after picking up the first key they moved in the wrong direction."],
+                  "Yes, they <i><b>mistakenly</b></i> &nbsp; moved down pass the second key."],
+        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 1
       },
       {
         text: `Your task now is to watch videos of someone playing the same game, 
-              and guess which gem is their target: Red, yellow, or blue?
+              and guess which gem they are most likely trying to colelct: Red, yellow, or blue?
               <br><br>
               <b>How to guess?</b> <br>
-              First, you need to choose the most likely target gem. 
-              If you think all three gems are equally likely, you can select the "All equally likely" option.  
-              If you select one of the gems as the most likely target, 
-              you then need to select how likely are the other two gems in comparison.`
+              As the player moves on the map, you need to choose which gem (out of the three possible gems) 
+              your friend is most likely trying to collect.
+              If there are several likely choices you can select <b>more than one gem</b>. 
+              If you think all three gems are equally likely, you can select the "All Equally Likely" option.`
       },
       {
         text: `Let's do a practice run, just so you're familiarized.`,
       },
       {
         text: `First, you'll get a chance to look at the layout. 
-              Before seeing the player (red circle) move, choose which gem you think is the most likely the target gem. 
-              If two gems seem equally likely, just choose either one of them for now. 
-              You may also indicate that they all seem equally likely.`,
-        image: "tutorial/tutorial/0.png",
+              Before seeing the player (red trinagle) move, choose which gem you think is most likely the target gem. 
+              If all three gems seem equally likely, you can indicate this by selecting the "All Equally Likely" option. `,
+        image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: true
       },
@@ -400,21 +402,27 @@ experimentApp.controller('ExperimentController',
         text: `In the next step, the player will make the first move.
               <br><br> 
               Press Next to continue`,
-        image: "tutorial/tutorial/0b.png",
+        image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        text: `What do you think? Does picking up a key make any particular gem more likely? 
-              If you select one of the goals as most likely, notice that you'll be asked to rate how likely 
-              the other goals are in comparison. Just as likely? Half as likely? Not at all?`,
-        image: "tutorial/tutorial/0.gif",
+        text: `What do you think? Does picking up the key and opening the door make some gems more likely?
+`,
+        image: "tutorial/tutorial/1.gif",
         tutorial: true,
         questions_show: true
       },
       {
-        text: `How about now?`,
-        image: "tutorial/tutorial/1.gif",
+        text: `How about now? If you think two gems are equally likely you can indicate this by selecting both of them.
+`,
+        image: "tutorial/tutorial/2.gif",
+        tutorial: true,
+        questions_show: true
+      },
+      {
+        text: `How about now? Does this move make any particular gem more likely than the others?`,
+        image: "tutorial/tutorial/3.gif",
         tutorial: true,
         questions_show: true
       },
@@ -423,15 +431,16 @@ experimentApp.controller('ExperimentController',
               That's fine, the person playing the game <b>might make mistakes</b> sometimes.
               <br> <br>
               Press Next to see the next series of moves.`,
-        image: "tutorial/tutorial/2.png",
+        image: "tutorial/tutorial/3b.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        image: "tutorial/tutorial/2.gif",
+        image: "tutorial/tutorial/4.gif",
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
-        options: ['I don\'t think a mistake was made.', 'The player wants the red gem but has <i><b>mistakenly</b></i> &nbsp;picked up a key and used it to unlock a door',
-          'The player wants the blue gem but has used the key to open the <i><b>wrong</b></i>&nbsp; door and now they are out of keys and can\'t reach their target gem'
+        options: ['I don\'t think a mistake was made.', 
+                  'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
+                  'The player wants the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
         ],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 2
@@ -439,20 +448,29 @@ experimentApp.controller('ExperimentController',
       {
         text: `Let's watch the move again, make your best guess about the player's goal.
         Keep in mind throughout the following tasks that the player might make mistakes, but not always.`,
-        image: "tutorial/tutorial/2b.gif",
+        image: "tutorial/tutorial/4b.gif",
         tutorial: true
       },
       {
-        text: `Yes, your friend was aiming for the blue gem!
-              <br><br>
-              Notice that even though the blue gem was the true goal, the player couldn't get it and the game has ended. 
-              This might happen in some of the following tasks, but keep in mind that you are always trying to guess which gem the player is 
-              <i><b>trying</b></i>&nbsp; to collect.`,
-        image: "tutorial/tutorial/3.png",
+        text: `How about now?`,
+        image: "tutorial/tutorial/5.gif",
+        tutorial: true
+      },
+      {
+        text: `Even if it seems obvious what the goal is, do make sure to
+               answer by selecting the most likely gem only.`,
+        image: "tutorial/tutorial/6.gif",
+        tutorial: true
+      },
+      {
+        text: `Yes, your friend was aiming for the blue gem!`,
+        image: "tutorial/tutorial/7.gif",
       },
       {
         text: `<b>Bonus Payment Points</b> <br>
-                INSERT BONUS POINTS METHODS
+               As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make, 
+               based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game, 
+               and will be <b>displayed after that game</b>.
                <br><br>
                Your points from all games are converted to bonus payment at a rate of <b>10 points = $1.00.</b>
                The points system will be explained in more detail on the next page.
@@ -461,9 +479,14 @@ experimentApp.controller('ExperimentController',
       {
         text: `<b>Bonus Payment Points</b> <br>
                The points system works as follows:<br>
-               INSERT POINT SYSTEM DETAILS
+               The points system works as follows:<br>
+               <b>-XX points</b> if none of the gems you choose is correct <br>
+               <b>0.0 points</b> for saying "All Equally Likely" or choosing all gems<br>
+               <b>XX points</b> for choosing 2 gems, one of which is the correct gem <br>
+               <b>XX points</b> for choosing only the correct gem
                <br><br>
-               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident! The point system is designed so that you <b>don't benefit from guessing when you don't know for sure</b>.`
+               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident! 
+               The point system is designed so that you <b>don't benefit from guessing when you don't know for sure</b>.`
       },
       {
         text: `<b>Comprehension Check Questions</b> <br>
@@ -472,26 +495,26 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Watch your friend play and decide for them which gem to collect.", "Move on the map and collect gems.",
+        options: ["Watch your friend play and decide which gem they should collect.", "Controll the player to collect gems.",
           "Watch your friend play and try to guess which gem they are trying to collect."],
         answer: 2,
         exam: true
       },
       {
         text: `<b>Question 2/4:</b>  In a game, how many gems is your friend trying to collect?`,
-        options: ["1 gem", "2 gems", "As many as possible"],
+        options: ["1 gem only", "2 gems only", "As many as possible"],
         answer: 0,
         exam: true
       },
       {
-        text: `<b>Question 3/4:</b> Can your friend change their target gem while they're playing?`,
-        options: ["Yes, they can", "No, they have a specific target gem at the begining of the game and can't change it"],
+        text: `<b>Question 3/4:</b> You're watching your friend play and <b>two</b> of the gems seem likelier than the third. What should you do?`,
+        options: ["Guess <b>one</b> of the two likely gems.", "Guess <b>both</b> likely gems."],
         answer: 1,
         exam: true
       },
       {
         text: `<b>Question 4/4:</b> You're watching your friend play and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
-        options: ["Guess one or two gems and hope one of them is correct.", "Select the \"All equally likely\" option because I may lose bonus points from guessing incorrectly."],
+        options: ["Guess one or two gems and hope one of them is correct.", "Select the \"All Equally Likely\" option because I may lose bonus points from guessing incorrectly."],
         answer: 1,
         exam: true
       },
