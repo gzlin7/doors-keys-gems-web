@@ -373,13 +373,13 @@ experimentApp.controller('ExperimentController',
         image: "tutorial/demo/scenario-tutorial-demo.gif",
         question: `Can you tell if your friend <b>made a mistake</b> while playing?`,
         options: ["No, there was no mistake", 
-                  "Yes, they <i><b>mistakenly</b></i> &nbsp; moved down pass the second key."],
+                  "Yes, they <i><b>mistakenly</b></i> &nbsp; moved down past the second key."],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 1
       },
       {
         text: `Your task now is to watch videos of someone playing the same game, 
-              and guess which gem they are most likely trying to colelct: Red, yellow, or blue?
+              and guess which gem they are most likely trying to collect: Red, yellow, or blue?
               <br><br>
               <b>How to guess?</b> <br>
               As the player moves on the map, you need to choose which gem (out of the three possible gems) 
@@ -392,7 +392,7 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `First, you'll get a chance to look at the layout. 
-              Before seeing the player (red trinagle) move, choose which gem you think is most likely the target gem. 
+              Before seeing the player (red triangle) move, choose which gem you think is most likely the target gem. 
               If all three gems seem equally likely, you can indicate this by selecting the "All Equally Likely" option. `,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
@@ -440,7 +440,7 @@ experimentApp.controller('ExperimentController',
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
         options: ['I don\'t think a mistake was made.', 
                   'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
-                  'The player wants the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
+                  'The player wants the blue gem but <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
         ],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 2
@@ -495,7 +495,7 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Watch your friend play and decide which gem they should collect.", "Controll the player to collect gems.",
+        options: ["Watch your friend play and decide which gem they should collect.", "Control the player to collect gems.",
           "Watch your friend play and try to guess which gem they are trying to collect."],
         answer: 2,
         exam: true
@@ -569,6 +569,7 @@ experimentApp.controller('ExperimentController',
       //     "stimuli/1/1/0.png",
       //   ]
       // },
+      [
         {
           "trial": 0,
           "times": [
@@ -647,18 +648,16 @@ experimentApp.controller('ExperimentController',
           "trial": 0,
           "times": [
             1,
-            8,
-            10
+            7
           ],
-          "name": "scenario_3_4",
+          "name": "scenario_4_2",
           "optimal": false,
           "goal": 2,
           "problem": 5,
-          "length": 3,
+          "length": 2,
           "images": [
-            "stimuli/scenario_3_4_0.gif",
-            "stimuli/scenario_3_4_1.gif",
-            "stimuli/scenario_3_4_2.gif"
+            "stimuli/scenario_4_2_0.gif",
+            "stimuli/scenario_4_2_1.gif"
           ]
         },
         {
@@ -674,21 +673,21 @@ experimentApp.controller('ExperimentController',
             50,
             54
           ],
-          "name": "scenario_4_2",
+          "name": "scenario_3_4",
           "optimal": false,
           "goal": 2,
           "problem": 5,
           "length": 9,
           "images": [
-            "stimuli/scenario_4_2_0.gif",
-            "stimuli/scenario_4_2_1.gif",
-            "stimuli/scenario_4_2_2.gif",
-            "stimuli/scenario_4_2_3.gif",
-            "stimuli/scenario_4_2_4.gif",
-            "stimuli/scenario_4_2_5.gif",
-            "stimuli/scenario_4_2_6.gif",
-            "stimuli/scenario_4_2_7.gif",
-            "stimuli/scenario_4_2_8.gif"
+            "stimuli/scenario_3_4_0.gif",
+            "stimuli/scenario_3_4_1.gif",
+            "stimuli/scenario_3_4_2.gif",
+            "stimuli/scenario_3_4_3.gif",
+            "stimuli/scenario_3_4_4.gif",
+            "stimuli/scenario_3_4_5.gif",
+            "stimuli/scenario_3_4_6.gif",
+            "stimuli/scenario_3_4_7.gif",
+            "stimuli/scenario_3_4_8.gif"
           ]
         },
         {
@@ -937,7 +936,6 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_4_4_3.gif"
           ]
         }
-      ]
-      ;
+      ];
   }
 )
