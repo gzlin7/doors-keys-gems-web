@@ -334,17 +334,18 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here. 
+              At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
               The rules of the game are as follows: 
               <br>
               <ul>
-              <li> The player decides on a gem to collect at the begining of the game.</li>
-              <li> The target gem doesn't change along the way.</li>
-              <li> The player can only move on the white squares.</li>
-              <li> The player have a full view of the map at all times.</li>
-              <li> Keys are used to unlock doors.</li>
-              <li> The player can pick up multiple keys.</li>
-              <li> A key can only be used once.</li>
-              <li> If the player fails to collect the target gem the game ends.</li>
+              <li> The player's goal is to collect their target gem</li>
+              <li> The player can move on the white squares</li>
+              <li> The player have a full view of the map at all times</li>
+              <li> The player can pick up keys and gems by walking over them</li>
+              <li> Keys are used to unlock doors</li>
+              <li> A key can only be used once</li>
+              <li> The player can pick up multiple keys</li>
+              <li> If it becomes impossible for the player to collect their target gem the game ends</li>
               </ul>
               You are watching and trying to figure out which gem your friend is trying to collect. 
               <br><br>
@@ -439,11 +440,11 @@ experimentApp.controller('ExperimentController',
         image: "tutorial/tutorial/4.gif",
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
         options: ['I don\'t think a mistake was made.', 
-                  'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
+                  // 'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
                   'The player wants the blue gem but <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
         ],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
-        answer: 2
+        answer: 1
       },
       {
         text: `Let's watch the move again, make your best guess about the player's goal.
@@ -528,7 +529,7 @@ experimentApp.controller('ExperimentController',
       $scope.instructions.filter(i => i.image !== undefined).map(i => i.image);
     preloader.preloadImages(instruction_images).then(
       function handleResolve(imglocs) {console.info("Preloaded instructions.");});
-    $scope.stimuli = [
+    $scope.stimuli = 
       // uncomment to test mistake response
       // {
       //   "trial": 0,
