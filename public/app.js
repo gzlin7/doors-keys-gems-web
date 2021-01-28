@@ -327,14 +327,14 @@ experimentApp.controller('ExperimentController',
     $scope.stimuli_set_length = $scope.stimuli_sets[0].length;
     $scope.instructions = [
       {
-        text: `Welcome to our goal inference game! <br>
+        text: `Welcome to our goal prediction game! <br>
                Before you begin your task, you'll complete a brief guided tutorial (~ 5 minutes) 
                to understand the game.<br>
                Press Next to continue.`,
       },
       {
         text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here. 
-              At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
+               At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
               The rules of the game are as follows: 
               <br>
               <ul>
@@ -345,11 +345,11 @@ experimentApp.controller('ExperimentController',
               <li> Keys are used to unlock doors</li>
               <li> A key can only be used once</li>
               <li> The player can pick up multiple keys</li>
-              <li> If it becomes impossible for the player to collect their target gem the game ends</li>
+              <li> If it's no longer possible for the player to obtain their target gem the game ends</li>
               </ul>
-              You are watching and trying to figure out which gem your friend is trying to collect. 
+              Your task is to watch and try to <b> figure out which gem your friend is trying to collect (goal gem) </b>. 
               <br><br>
-              Hit the <b>Next button</b> to watch your friend play. 
+              Press the <b>Next</b> button to watch your friend play. 
               `,
         image: "tutorial/demo/0.gif"
       },
@@ -379,13 +379,12 @@ experimentApp.controller('ExperimentController',
         answer: 1
       },
       {
-        text: `Your task now is to watch videos of someone playing the same game, 
-              and guess which gem they are most likely trying to collect: Red, yellow, or blue?
+        text: `Your task now is to watch videos of someone playing the game, 
+              and guess which gem they are most likely trying to collect: Red, Yellow, or Blue?
               <br><br>
               <b>How to guess?</b> <br>
-              As the player moves on the map, you need to choose which gem (out of the three possible gems) 
-              your friend is most likely trying to collect.
-              If there are several likely choices you can select <b>more than one gem</b>. 
+              As the player moves on the map, you need to choose which gem you think they are most likely trying to collect.
+              You can select <b>more than one gem</b> if there are <b>several likely choices</b>!
               If you think all three gems are equally likely, you can select the "All Equally Likely" option.`
       },
       {
@@ -393,8 +392,8 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `First, you'll get a chance to look at the layout. 
-              Before seeing the player (red triangle) move, choose which gem you think is most likely the target gem. 
-              If all three gems seem equally likely, you can indicate this by selecting the "All Equally Likely" option. `,
+              Before seeing the player (red triangle) move, choose which gem you think is most likely the goal gem. 
+              If all three gems seem equally likely, you can select the "All Equally Likely" option. `,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: true
@@ -415,7 +414,7 @@ experimentApp.controller('ExperimentController',
         questions_show: true
       },
       {
-        text: `How about now? If you think two gems are equally likely you can indicate this by selecting both of them.
+        text: `How about now? If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
 `,
         image: "tutorial/tutorial/2.gif",
         tutorial: true,
@@ -441,7 +440,7 @@ experimentApp.controller('ExperimentController',
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
         options: ['I don\'t think a mistake was made.', 
                   // 'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
-                  'The player wants the blue gem but <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
+                  'The player wants to collect the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
         ],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 1
@@ -529,7 +528,7 @@ experimentApp.controller('ExperimentController',
       $scope.instructions.filter(i => i.image !== undefined).map(i => i.image);
     preloader.preloadImages(instruction_images).then(
       function handleResolve(imglocs) {console.info("Preloaded instructions.");});
-    $scope.stimuli = 
+    $scope.stimuli = [
       // uncomment to test mistake response
       // {
       //   "trial": 0,
@@ -570,7 +569,6 @@ experimentApp.controller('ExperimentController',
       //     "stimuli/1/1/0.png",
       //   ]
       // },
-      [
         {
           "trial": 0,
           "times": [
