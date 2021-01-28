@@ -327,28 +327,30 @@ experimentApp.controller('ExperimentController',
     $scope.stimuli_set_length = $scope.stimuli_sets[0].length;
     $scope.instructions = [
       {
-        text: `Welcome to our goal inference game! <br>
+        text: `Welcome to our goal prediction game! <br>
                Before you begin your task, you'll complete a brief guided tutorial (~ 5 minutes) 
                to understand the game.<br>
                Press Next to continue.`,
       },
       {
-        text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here. 
-              The rules of the game are as follows: 
+        text: `Imagine you're watching your friend play the Doors, Keys, & Gems video game shown here. 
+        <br><br>
+        At the beginning of the game, the player is given a goal gem (ONE of: <b style="color: #D41159">Red</b>, <b style="color: #FFC20A">Yellow</b>, or <b style="color: #1A85FF">Blue</b>).
+        The player's <b>objective is to collect their goal gem.</b>
+        <br>
+              The rules of the game are as follows:
               <br>
               <ul>
-              <li> The player decides on a gem to collect at the begining of the game.</li>
-              <li> The target gem doesn't change along the way.</li>
+              <li> The player has a full view of the map at all times.</li>
               <li> The player can only move on the white squares.</li>
-              <li> The player have a full view of the map at all times.</li>
-              <li> Keys are used to unlock doors.</li>
+              <li> The player can pick up keys and gems by walking over them.</li>
+              <li> Keys are used to unlock doors, and a key can only be used once.</li>
               <li> The player can pick up multiple keys.</li>
-              <li> A key can only be used once.</li>
-              <li> If the player fails to collect the target gem the game ends.</li>
+              <li> If it's no longer possible for the player to obtain their goal gem, the game ends.</li>
               </ul>
-              You are watching and trying to figure out which gem your friend is trying to collect. 
+              Your task is to watch and try to <b> figure out which gem your friend is trying to collect (goal gem) </b>. 
               <br><br>
-              Hit the <b>Next button</b> to watch your friend play. 
+              Press the <b>Next</b> button to watch your friend play. 
               `,
         image: "tutorial/demo/0.gif"
       },
@@ -378,13 +380,12 @@ experimentApp.controller('ExperimentController',
         answer: 1
       },
       {
-        text: `Your task now is to watch videos of someone playing the same game, 
-              and guess which gem they are most likely trying to collect: Red, yellow, or blue?
+        text: `Your task now is to watch videos of someone playing the game, 
+              and guess which gem they are most likely trying to collect: Red, Yellow, or Blue?
               <br><br>
               <b>How to guess?</b> <br>
-              As the player moves on the map, you need to choose which gem (out of the three possible gems) 
-              your friend is most likely trying to collect.
-              If there are several likely choices you can select <b>more than one gem</b>. 
+              As the player moves on the map, you need to choose which gem you think they are most likely trying to collect.
+              You can select <b>more than one gem</b> if there are <b>several likely choices</b>!
               If you think all three gems are equally likely, you can select the "All Equally Likely" option.`
       },
       {
@@ -392,8 +393,8 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `First, you'll get a chance to look at the layout. 
-              Before seeing the player (red triangle) move, choose which gem you think is most likely the target gem. 
-              If all three gems seem equally likely, you can indicate this by selecting the "All Equally Likely" option. `,
+              Before seeing the player (red triangle) move, choose which gem you think is most likely the goal gem. 
+              If all three gems seem equally likely, you can select the "All Equally Likely" option. `,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: true
@@ -414,7 +415,7 @@ experimentApp.controller('ExperimentController',
         questions_show: true
       },
       {
-        text: `How about now? If you think two gems are equally likely you can indicate this by selecting both of them.
+        text: `How about now? If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
 `,
         image: "tutorial/tutorial/2.gif",
         tutorial: true,
@@ -569,7 +570,6 @@ experimentApp.controller('ExperimentController',
       //     "stimuli/1/1/0.png",
       //   ]
       // },
-      [
         {
           "trial": 0,
           "times": [
