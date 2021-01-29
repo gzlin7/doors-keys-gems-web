@@ -33,8 +33,9 @@
       text-align: left;
     }
 
-    .hidden {
-      display: none;
+    .feedback {
+      font-size: 14pt;
+      text-align: left;
     }
 
     .stimulus {
@@ -150,6 +151,7 @@
     <!-- Left side -->
     <div class="w3-col m6">
       <!-- <div> -->
+
       <!-- Instructions -->
       <p ng-show="section == 'instructions' && !instruction_has_image()" class="instructions1 full-row"
         ng-bind-html="instructions[inst_id].text">
@@ -159,38 +161,22 @@
         </li>
       </ul>
       </p>
+
+      <!-- Instruction image -->
       <img ng-show="section == 'instructions' && instruction_has_image()" ng-src="{{instructions[inst_id].image}}"
         class="stimulus" id="instruction-img">
       <p class="section_title" ng-show="section == 'instructions' && instruction_has_image()">Tutorial</p>
-      <!-- Stimuli -->
-      <p ng-show="section == 'stimuli' && part_id < 0" class="full-row">
-        The true goal was
-        <span ng-style="{color:'blue'}">{{possible_goals[stimuli_set[stim_id-1].goal]}}</span>. <br>
-        You earned {{bonus_points}} bonus points this round.<br><br>
 
-        <!-- Mistake text box -->
-        <span ng-show="section == 'stimuli' && part_id < 0 && last_two_scenarios">
-          Did the player make a mistake or act inefficiently while trying to reach
-          {{possible_goals[stimuli_set[stim_id-1].goal]}} gem?
-          <br>
-          <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()"
-            value="yes">
-          <span class="checkboxtext">Yes</span>
-          <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()" value="no">
-          <span class="checkboxtext">No</span>
-          <br>
-          <span ng-show="mistake_yes_no == 'yes'"> Please provide a <b>brief description of the
-              mistake or inefficiency</b> in the box below to continue.
-            <br>
-            <textarea ng-model="mistake_response" ng-change="validate_mistake()" rows="4" cols="75">
-          </textarea>
-          </span>
-        </span>
-      </p>
+      <!-- Stimuli -->
       <img ng-show="section == 'stimuli' && part_id >= 0" ng-src="{{stimuli_set[stim_id].images[part_id]}}"
         class="stimulus" id="stimulus-img">
-      <div class="section_title" ng-show="section == 'stimuli' && part_id >= 0"> Round {{stim_id +
-        1}}/{{stimuli_set_length}}</div>
+      <img ng-show="section == 'stimuli' && part_id == -1" ng-src="{{stimuli_set[stim_id-1].images.slice(-1)[0]}}"
+        class="stimulus" id="stimulus-img">
+      <div class="section_title" ng-show="section == 'stimuli' && part_id >= 0">
+        Round {{stim_id+1}}/{{stimuli_set_length}}</div>
+      <div class="section_title" ng-show="section == 'stimuli' && part_id < 0">
+        Round {{stim_id}}/{{stimuli_set_length}}</div>
+
       <!-- Break screen before last 2 stimuli -->
       <p ng-show="section == 'breakscreen'" class="full-row">
         Almost done! In these last two rounds, we're adding a bonus question:
@@ -204,6 +190,7 @@
         <br> <br>
         Hit Next to continue.
       </p>
+
       <!-- Endscreen -->
       <p ng-show="section == 'endscreen'" class="full-row">
         You're all done! You scored {{total_reward}} points in total, equal to ${{total_payment}} bonus payment.
@@ -212,7 +199,7 @@
         <br><br>
         Your survey code is {{user_id}}
       </p>
-      <!-- </div> -->
+
       <!-- Controls -->
       <div class="controls">
         <button class="button" ng-click="reload_gif()"
@@ -237,10 +224,11 @@
       <p ng-show="section == 'instructions' && instruction_has_image()" class="captions"
         ng-bind-html="instructions[inst_id].text">
       </p>
+
       <!-- Note: No instruction should have both tutorial and comprehension questions -->
       <!-- Questions for goals-->
-      <div ng-show="(section == 'stimuli' && part_id >= 0) || (is_tutorial() && !hide_questions())" class="hidden"
-        id="question" class="question">
+      <div ng-show="(section == 'stimuli' && part_id >= 0) || (is_tutorial() && !hide_questions())"
+        id="question" class="captions">
         <br><br>
         <p><b>Which gem or gems are most likely to be the player's goal? </b> </p>
         <ul class="no-bullets">
@@ -264,6 +252,32 @@
 
         <!-- <button class="check-all" ng-click="check_all()">All Equally Likely</button> -->
       </div>
+
+      <!-- Post-Stimulus Feedback -->
+      <p ng-show="section == 'stimuli' && part_id < 0" class="feedback">
+       The true goal was
+       <span ng-style="true_color(stim_id-1)"><b>{{possible_goals[stimuli_set[stim_id-1].goal]}}</b></span>. <br>
+       You earned {{bonus_points}} bonus points this round.<br><br>
+      </p>
+
+      <!-- Mistake text box -->
+      <p ng-show="section == 'stimuli' && part_id < 0 && last_two_scenarios" class="feedback">
+         Did the player <b>make a mistake</b> or <b>act inefficiently</b> while trying to reach
+         <span ng-style="true_color(stim_id-1)"><b>{{possible_goals[stimuli_set[stim_id-1].goal]}}</b></span> gem?
+         <br>
+         <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no"
+                ng-change="validate_mistake()" value="yes"> Yes
+         <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no"
+                ng-change="validate_mistake()" value="no"> No
+         <br>
+         <br>
+         <span ng-show="mistake_yes_no == 'yes'"> Please provide a brief description of the
+             mistake or inefficiency in the box below to continue.
+           <br>
+           <textarea ng-model="mistake_response" ng-change="validate_mistake()" rows="4" cols="45">
+         </textarea>
+         </span>
+      </p>
 
       <!-- Comprehension questions -->
       <div ng-show="section == 'instructions' && instruction_has_question()" class="comprehension_question">

@@ -22,15 +22,6 @@ experimentApp.controller('ExperimentController',
     $scope.last_two_scenarios = false;
     $scope.breakscreen_shown = false;
     $scope.show_rhs = true;
-    $scope.csv_header = [
-      "timestep",
-      "goal_probs_0",
-      "goal_probs_1",
-      "goal_probs_2",
-      "goal_probs_3",
-      "goal_probs_4",
-      "true_goal_probs"
-    ];
     $scope.exam_results = [];
     $scope.ratings = [];
     $scope.reload_gif = function () {
@@ -118,7 +109,6 @@ experimentApp.controller('ExperimentController',
         $scope.stim_id = 0;
         $scope.part_id = 0;
         $scope.ratings = [];
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
         preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
           function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
@@ -192,8 +182,6 @@ experimentApp.controller('ExperimentController',
           function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         $scope.part_id = $scope.part_id + 1;
         $scope.ratings = [];
-        // set possible goals based on stimuli json
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
       } else if ($scope.part_id < $scope.stimuli_set[$scope.stim_id].length) {
         // Advance to next part
@@ -285,14 +273,18 @@ experimentApp.controller('ExperimentController',
       // unhide question sliders- workaround for slider initial flashing
       document.getElementById("question").classList.remove("hidden");
     };
-    $scope.rating_labels = ["Very Unlikely", "Maybe", "Very Likely"];
-    $scope.possible_goals = ["power", "cower", "crow", "core", "pore"];
+    $scope.possible_goals = ["red", "yellow", "blue"];
     $scope.true_goal = 0
     $scope.reward_score = 0;
     $scope.bonus_points = 0;
     $scope.total_reward = 0;
     $scope.mistake_bonus = 0
     $scope.tutorial_score = 0;
+
+    $scope.gem_colors = [{color:"#D41159"}, {color:"#FFC20A"}, {color:"#1A85FF"}];
+    $scope.true_color = function(id) {
+      return $scope.gem_colors[$scope.true_goal];
+    };
 
     $scope.instruction_has_image = function () {
       return $scope.instructions[$scope.inst_id].image != null
@@ -416,8 +408,7 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `What do you think? Does picking up the key make some of the gems more likely?
-              If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
-`,
+              If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.`,
         image: "tutorial/tutorial/1.gif",
         footnote: "Once done, press Next to watch the next series of moves.",
         tutorial: true,
@@ -425,8 +416,7 @@ experimentApp.controller('ExperimentController',
         delay: 1000
       },
       {
-        text: `How about now? Do these actions make any particular gem more likely than the others?
-`,
+        text: `How about now? Do these actions make any particular gem more likely than the others?`,
         image: "tutorial/tutorial/2.gif",
         tutorial: true,
         questions_show: true,
@@ -597,7 +587,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 4,
-          "length": 6,
+          "length": 5,
           "images": [
             "stimuli/scenario_1_3_0.gif",
             "stimuli/scenario_1_3_1.gif",
@@ -624,7 +614,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 4,
-          "length": 9,
+          "length": 8,
           "images": [
             "stimuli/scenario_3_2_0.gif",
             "stimuli/scenario_3_2_1.gif",
@@ -649,7 +639,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 5,
-          "length": 4,
+          "length": 3,
           "images": [
             "stimuli/scenario_2_2_0.gif",
             "stimuli/scenario_2_2_1.gif",
@@ -720,7 +710,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 6,
-          "length": 9,
+          "length": 8,
           "images": [
             "stimuli/scenario_3_1_0.gif",
             "stimuli/scenario_3_1_1.gif",
@@ -746,7 +736,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 6,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_1_1_0.gif",
             "stimuli/scenario_1_1_1.gif",
@@ -768,7 +758,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 7,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_1_2_0.gif",
             "stimuli/scenario_1_2_1.gif",
@@ -789,7 +779,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 7,
-          "length": 4,
+          "length": 3,
           "images": [
             "stimuli/scenario_4_1_0.gif",
             "stimuli/scenario_4_1_1.gif",
@@ -810,7 +800,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 9,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_2_1_0.gif",
             "stimuli/scenario_2_1_1.gif",
@@ -849,7 +839,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 10,
-          "length": 4,
+          "length": 3,
           "images": [
             "stimuli/scenario_2_3_0.gif",
             "stimuli/scenario_2_3_1.gif",
@@ -871,7 +861,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 11,
-          "length": 6,
+          "length": 5,
           "images": [
             "stimuli/scenario_3_3_0.gif",
             "stimuli/scenario_3_3_1.gif",
@@ -894,7 +884,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 11,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_2_4_0.gif",
             "stimuli/scenario_2_4_1.gif",
@@ -918,7 +908,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 12,
-          "length": 7,
+          "length": 6,
           "images": [
             "stimuli/scenario_1_4_0.gif",
             "stimuli/scenario_1_4_1.gif",
