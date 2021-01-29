@@ -407,22 +407,17 @@ experimentApp.controller('ExperimentController',
         questions_show: false
       },
       {
-        text: `What do you think? Does picking up the key and opening the door make some gems more likely?
+        text: `What do you think? Does picking up the key make some of the gems more likley? 
+              If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
 `,
         image: "tutorial/tutorial/1.gif",
         tutorial: true,
         questions_show: true
       },
       {
-        text: `How about now? If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
+        text: `How about now? Does this move make any particular gem more likely than the others?
 `,
         image: "tutorial/tutorial/2.gif",
-        tutorial: true,
-        questions_show: true
-      },
-      {
-        text: `How about now? Does this move make any particular gem more likely than the others?`,
-        image: "tutorial/tutorial/3.gif",
         tutorial: true,
         questions_show: true
       },
@@ -431,16 +426,16 @@ experimentApp.controller('ExperimentController',
               That's fine, the person playing the game <b>might make mistakes</b> sometimes.
               <br> <br>
               Press Next to see the next series of moves.`,
-        image: "tutorial/tutorial/3b.gif",
+        image: "tutorial/tutorial/2b.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        image: "tutorial/tutorial/4.gif",
+        image: "tutorial/tutorial/3.gif",
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
         options: ['I don\'t think a mistake was made.', 
                   // 'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
-                  'The player wants to collect the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
+                  'The player wants to collect the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key  .'
         ],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 1
@@ -448,23 +443,23 @@ experimentApp.controller('ExperimentController',
       {
         text: `Let's watch the move again, make your best guess about the player's goal.
         Keep in mind throughout the following tasks that the player might make mistakes, but not always.`,
-        image: "tutorial/tutorial/4b.gif",
+        image: "tutorial/tutorial/3b.gif",
         tutorial: true
       },
       {
-        text: `How about now?`,
-        image: "tutorial/tutorial/5.gif",
+        text: `The player is now fixing the mistake.`,
+        image: "tutorial/tutorial/4.gif",
         tutorial: true
       },
       {
         text: `Even if it seems obvious what the goal is, do make sure to
                answer by selecting the most likely gem only.`,
-        image: "tutorial/tutorial/6.gif",
+        image: "tutorial/tutorial/5.gif",
         tutorial: true
       },
       {
         text: `Yes, your friend was aiming for the blue gem!`,
-        image: "tutorial/tutorial/7.gif",
+        image: "tutorial/tutorial/6.gif",
       },
       {
         text: `<b>Bonus Payment Points</b> <br>
