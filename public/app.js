@@ -680,7 +680,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 5,
-          "length": 9,
+          "length": 8,
           "images": [
             "stimuli/scenario_3_4_0.gif",
             "stimuli/scenario_3_4_1.gif",
