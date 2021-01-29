@@ -90,36 +90,6 @@
     ]
   },
   {
-    "trial": 1,
-    "times": [
-      1,
-      8,
-      15,
-      22,
-      29,
-      36,
-      43,
-      50,
-      54
-    ],
-    "name": "scenario_3_4",
-    "optimal": false,
-    "goal": 2,
-    "problem": 5,
-    "length": 9,
-    "images": [
-      "stimuli/scenario_3_4_0.gif",
-      "stimuli/scenario_3_4_1.gif",
-      "stimuli/scenario_3_4_2.gif",
-      "stimuli/scenario_3_4_3.gif",
-      "stimuli/scenario_3_4_4.gif",
-      "stimuli/scenario_3_4_5.gif",
-      "stimuli/scenario_3_4_6.gif",
-      "stimuli/scenario_3_4_7.gif",
-      "stimuli/scenario_3_4_8.gif"
-    ]
-  },
-  {
     "trial": 0,
     "times": [
       1,
@@ -220,6 +190,64 @@
       8,
       15,
       22,
+      29,
+      36,
+      43,
+      47
+    ],
+    "name": "scenario_2_4",
+    "optimal": false,
+    "goal": 1,
+    "problem": 8,
+    "length": 8,
+    "images": [
+      "stimuli/scenario_2_4_0.gif",
+      "stimuli/scenario_2_4_1.gif",
+      "stimuli/scenario_2_4_2.gif",
+      "stimuli/scenario_2_4_3.gif",
+      "stimuli/scenario_2_4_4.gif",
+      "stimuli/scenario_2_4_5.gif",
+      "stimuli/scenario_2_4_6.gif",
+      "stimuli/scenario_2_4_7.gif"
+    ]
+  },
+  {
+    "trial": 0,
+    "times": [
+      1,
+      8,
+      15,
+      22,
+      29,
+      36,
+      43,
+      50,
+      53
+    ],
+    "name": "scenario_3_4",
+    "optimal": false,
+    "goal": 2,
+    "problem": 8,
+    "length": 9,
+    "images": [
+      "stimuli/scenario_3_4_0.gif",
+      "stimuli/scenario_3_4_1.gif",
+      "stimuli/scenario_3_4_2.gif",
+      "stimuli/scenario_3_4_3.gif",
+      "stimuli/scenario_3_4_4.gif",
+      "stimuli/scenario_3_4_5.gif",
+      "stimuli/scenario_3_4_6.gif",
+      "stimuli/scenario_3_4_7.gif",
+      "stimuli/scenario_3_4_8.gif"
+    ]
+  },
+  {
+    "trial": 0,
+    "times": [
+      1,
+      8,
+      15,
+      22,
       27
     ],
     "name": "scenario_2_1",
@@ -295,28 +323,6 @@
       "stimuli/scenario_3_3_3.gif",
       "stimuli/scenario_3_3_4.gif",
       "stimuli/scenario_3_3_5.gif"
-    ]
-  },
-  {
-    "trial": 1,
-    "times": [
-      1,
-      8,
-      15,
-      22,
-      26
-    ],
-    "name": "scenario_2_4",
-    "optimal": false,
-    "goal": 1,
-    "problem": 11,
-    "length": 5,
-    "images": [
-      "stimuli/scenario_2_4_0.gif",
-      "stimuli/scenario_2_4_1.gif",
-      "stimuli/scenario_2_4_2.gif",
-      "stimuli/scenario_2_4_3.gif",
-      "stimuli/scenario_2_4_4.gif"
     ]
   },
   {
