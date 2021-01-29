@@ -309,7 +309,7 @@
 
     <!-- Initialize Firebase -->
     <!-- <script src="/__/firebase/init.js"></script> -->
-    <script src="https://plinf-abdee.firebaseapp.com/__/firebase/init.js"></script>
+    <script src="https://gems-a716a.firebaseapp.com/__/firebase/init.js"></script>
 
     <script>
 
@@ -322,11 +322,11 @@
 
       function storeToDB(key, val) {
         console.log("Storing " + key + " with " + JSON.stringify(val));
-        // resultsRef.child(key).set(val);
+        resultsRef.child(key).set(val);
       }
 
       function incrementCounter() {
-        // counterRef.child(counterKey).set(count + 1);
+        counterRef.child(counterKey).set(count + 1);
       }
 
       async function getCounter() {
