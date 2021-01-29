@@ -119,6 +119,8 @@ experimentApp.controller('ExperimentController',
         $scope.ratings = [];
         $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
+        preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
+          function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         // get time of first experiment
         if (start_time == undefined) {
           start_time = (new Date()).getTime();
@@ -181,7 +183,7 @@ experimentApp.controller('ExperimentController',
         }
         // Advance to first part
         preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
-					function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
+          function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         $scope.part_id = $scope.part_id + 1;
         $scope.ratings = [];
         // set possible goals based on stimuli json
@@ -328,14 +330,14 @@ experimentApp.controller('ExperimentController',
     $scope.instructions = [
       {
         text: `Welcome to our goal prediction game! <br>
-               Before you begin your task, you'll complete a brief guided tutorial (~ 5 minutes) 
+               Before you begin your task, you'll complete a brief guided tutorial (~ 5 minutes)
                to understand the game.<br>
                Press Next to continue.`,
       },
       {
-        text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here. 
+        text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here.
                At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
-              The rules of the game are as follows: 
+              The rules of the game are as follows:
               <br>
               <ul>
               <li> The player's goal is to collect their target gem</li>
@@ -347,9 +349,9 @@ experimentApp.controller('ExperimentController',
               <li> The player can pick up multiple keys</li>
               <li> If it's no longer possible for the player to obtain their target gem the game ends</li>
               </ul>
-              Your task is to watch and try to <b> figure out which gem your friend is trying to collect (goal gem) </b>. 
+              Your task is to watch and try to <b> figure out which gem your friend is trying to collect (goal gem) </b>.
               <br><br>
-              Press the <b>Next</b> button to watch your friend play. 
+              Press the <b>Next</b> button to watch your friend play.
               `,
         image: "tutorial/demo/0.gif"
       },
@@ -361,25 +363,25 @@ experimentApp.controller('ExperimentController',
         answer: 1
       },
       {
-        text: `Let's watch it again, but this time, pay attention to whether your friend 
+        text: `Let's watch it again, but this time, pay attention to whether your friend
               <b>made a mistake</b> while playing.
               <br> <br>
               Hit Next to continue.`,
         image: "tutorial/demo/0.gif",
-        tutorial: true, 
+        tutorial: true,
         questions_show: false
       },
       {
         text: ``,
         image: "tutorial/demo/scenario-tutorial-demo.gif",
         question: `Can you tell if your friend <b>made a mistake</b> while playing?`,
-        options: ["No, there was no mistake", 
+        options: ["No, there was no mistake",
                   "Yes, they <i><b>mistakenly</b></i> &nbsp; moved down past the second key."],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 1
       },
       {
-        text: `Your task now is to watch videos of someone playing the game, 
+        text: `Your task now is to watch videos of someone playing the game,
               and guess which gem they are most likely trying to collect: Red, Yellow, or Blue?
               <br><br>
               <b>How to guess?</b> <br>
@@ -391,8 +393,8 @@ experimentApp.controller('ExperimentController',
         text: `Let's do a practice run, just so you're familiarized.`,
       },
       {
-        text: `First, you'll get a chance to look at the layout. 
-              Before seeing the player (red triangle) move, choose which gem you think is most likely the goal gem. 
+        text: `First, you'll get a chance to look at the layout.
+              Before seeing the player (red triangle) move, choose which gem you think is most likely the goal gem.
               If all three gems seem equally likely, you can select the "All Equally Likely" option. `,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
@@ -400,14 +402,14 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `In the next step, the player will make the first move.
-              <br><br> 
+              <br><br>
               Press Next to continue`,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        text: `What do you think? Does picking up the key make some of the gems more likley? 
+        text: `What do you think? Does picking up the key make some of the gems more likley?
               If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
 `,
         image: "tutorial/tutorial/1.gif",
@@ -422,7 +424,7 @@ experimentApp.controller('ExperimentController',
         questions_show: true
       },
       {
-        text: `You may soon notice that some of the player's moves don't make sense. 
+        text: `You may soon notice that some of the player's moves don't make sense.
               That's fine, the person playing the game <b>might make mistakes</b> sometimes.
               <br> <br>
               Press Next to see the next series of moves.`,
@@ -433,7 +435,7 @@ experimentApp.controller('ExperimentController',
       {
         image: "tutorial/tutorial/3.gif",
         question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
-        options: ['I don\'t think a mistake was made.', 
+        options: ['I don\'t think a mistake was made.',
                   // 'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
                   'The player wants to collect the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key  .'
         ],
@@ -463,8 +465,8 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Bonus Payment Points</b> <br>
-               As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make, 
-               based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game, 
+               As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make,
+               based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game,
                and will be <b>displayed after that game</b>.
                <br><br>
                Your points from all games are converted to bonus payment at a rate of <b>10 points = $1.00.</b>
@@ -480,12 +482,12 @@ experimentApp.controller('ExperimentController',
                <b>XX points</b> for choosing 2 gems, one of which is the correct gem <br>
                <b>XX points</b> for choosing only the correct gem
                <br><br>
-               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident! 
+               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident!
                The point system is designed so that you <b>don't benefit from guessing when you don't know for sure</b>.`
       },
       {
         text: `<b>Comprehension Check Questions</b> <br>
-               For the last part of the tutorial, we will ask 4 quick questions to check your understanding of the task. 
+               For the last part of the tutorial, we will ask 4 quick questions to check your understanding of the task.
                For each question, please select the best answer.`
       },
       {
@@ -514,7 +516,7 @@ experimentApp.controller('ExperimentController',
         exam: true
       },
       {
-        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds. 
+        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds.
         For the last 2 rounds, we will also ask you whether you believe your friend made a mistake, and to describe the mistake if so.
         Ready to start? Press Next to continue!`
       }
