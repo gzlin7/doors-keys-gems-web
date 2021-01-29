@@ -233,8 +233,6 @@ experimentApp.controller('ExperimentController',
           "goal_probs_0": probs[0],
           "goal_probs_1": probs[1],
           "goal_probs_2": probs[2],
-          "goal_probs_3": probs[3],
-          "goal_probs_4": probs[4],
           "true_goal_probs": probs[$scope.true_goal],
           "reward_score": $scope.reward_score
         }
@@ -246,8 +244,6 @@ experimentApp.controller('ExperimentController',
           "goal_probs_0": probs[0],
           "goal_probs_1": probs[1],
           "goal_probs_2": probs[2],
-          "goal_probs_3": probs[3],
-          "goal_probs_4": probs[4],
           "true_goal_probs": probs[$scope.true_goal],
           "reward_score": $scope.reward_score
         }
