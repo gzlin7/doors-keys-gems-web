@@ -2,7 +2,7 @@ var experimentApp = angular.module('experimentApp', ['ngSanitize', 'preloader'])
 var start_time;
 
 experimentApp.controller('ExperimentController',
-  function ExperimentController($scope, preloader) {
+  function ExperimentController($scope, $timeout, preloader) {
     $scope.section = "instructions";
     $scope.inst_id = 0;
     $scope.stim_id = 0;
@@ -21,6 +21,7 @@ experimentApp.controller('ExperimentController',
     $scope.valid_mistake = false;
     $scope.last_two_scenarios = false;
     $scope.breakscreen_shown = false;
+    $scope.show_rhs = true;
     $scope.csv_header = [
       "timestep",
       "goal_probs_0",
@@ -143,6 +144,11 @@ experimentApp.controller('ExperimentController',
           $scope.exam_results.push(correct);
         }
         $scope.inst_id = $scope.inst_id + 1;
+        if ($scope.instructions[$scope.inst_id].delay > 0) {
+          $scope.show_rhs = false;
+          $timeout(function() {$scope.show_rhs = true;},
+                   $scope.instructions[$scope.inst_id].delay);
+        }
       }
       $scope.response = { "checked": [false, false, false, false, false] };
       $scope.valid_goal = false;
@@ -335,38 +341,38 @@ experimentApp.controller('ExperimentController',
                Press Next to continue.`,
       },
       {
-        text: `Imagine you're watching your friend play the video game shown to the left.
+        text: `Imagine you're watching someone play the video game shown to the left.
                At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
               The rules of the game are as follows:
               <br>
               <ul>
               <li> The player's goal is to collect their target gem.</li>
               <li> The player can move on the white squares.</li>
-              <li> The player have a full view of the map at all times.</li>
-              <li> The player can pick up keys and gems by walking over them.</li>
+              <li> The player has a full view of the map at all times.</li>
+              <li> The player can pick up keys and gems at their position.</li>
               <li> Keys are used to unlock doors.</li>
               <li> A key can only be used once.</li>
               <li> The player can pick up multiple keys.</li>
               <li> The game ends if it's no longer possible for the player to obtain their target gem.</li>
               </ul>
-              Your task is to watch and try to <b> figure out which gem your friend is trying to collect</b>.
+              Your task is to watch and try to <b> figure out which gem the player is trying to collect</b>.
               <br><br>
-              Press the <b>Next</b> button to watch your friend play.
+              Press the <b>Next</b> button to watch.
               `,
         image: "tutorial/demo/0.gif"
       },
       {
         text: ``,
         image: "tutorial/demo/scenario-tutorial-demo.gif",
-        question: `Can you figure our which gem your friend is trying to collect?`,
+        question: `Can you figure out which gem the player is trying to collect?`,
         options: ["Red", "Yellow", "Blue"],
         answer: 1
       },
       {
-        text: `Let's watch it again, but this time, pay attention to whether your friend
-              <b>made a mistake</b> while playing.
+        text: `Let's watch it again, but this time, pay attention to whether the player
+              <b>made a mistake</b>.
               <br> <br>
-              Hit Next to continue.`,
+              Press Next to continue, then watch closely.`,
         image: "tutorial/demo/0.gif",
         tutorial: true,
         questions_show: false
@@ -374,10 +380,10 @@ experimentApp.controller('ExperimentController',
       {
         text: ``,
         image: "tutorial/demo/scenario-tutorial-demo.gif",
-        question: `Can you tell if your friend <b>made a mistake</b> while playing?`,
+        question: `Can you tell if the player <b>made a mistake</b>?`,
         options: ["No, there was no mistake",
                   "Yes, they accidentally moved past the second key."],
-        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
+        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay\".",
         answer: 1
       },
       {
@@ -401,31 +407,35 @@ experimentApp.controller('ExperimentController',
         questions_show: true
       },
       {
-        text: `In the next step, the player will make the first move.
+        text: `Now watch the player move a few steps ahead.
               <br><br>
-              Press Next to continue`,
+              Press Next to continue, then watch closely.`,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        text: `What do you think? Does picking up the key make some of the gems more likley?
+        text: `What do you think? Does picking up the key make some of the gems more likely?
               If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.
 `,
         image: "tutorial/tutorial/1.gif",
+        footnote: "Once done, press Next to watch the next series of moves.",
         tutorial: true,
-        questions_show: true
+        questions_show: true,
+        delay: 1000
       },
       {
-        text: `How about now? Does this move make any particular gem more likely than the others?
+        text: `How about now? Do these actions make any particular gem more likely than the others?
 `,
         image: "tutorial/tutorial/2.gif",
         tutorial: true,
-        questions_show: true
+        questions_show: true,
+        delay: 3000
       },
       {
-        text: `You may soon notice that some of the player's moves don't make sense.
-              That's fine, the person playing the game <b>might make mistakes</b> sometimes.
+        text: `You may soon notice that the player may not always take the most efficient path
+              to the goal. That's fine - the person playing the game might <b>make mistakes</b>
+              or <b>be inefficient</b>.
               <br> <br>
               Press Next to see the next series of moves.`,
         image: "tutorial/tutorial/2b.gif",
@@ -434,22 +444,29 @@ experimentApp.controller('ExperimentController',
       },
       {
         image: "tutorial/tutorial/3.gif",
-        question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
-        options: ['I don\'t think a mistake was made.',
-                  // 'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
-                  'The player wants to collect the blue gem but has <i><b>mistakenly</b></i> &nbsp; missed the second key  .'
+        question: `Is the player taking the most efficient path to their goal? Remember, once a key is used to unlock a door, it is gone forever.`,
+        options: ['Yes, the player is taking the shortest path possible to their goal.',
+                  'No, they could have picked up both keys before unlocking the door.'
         ],
-        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
-        answer: 1
+        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay\".",
+        answer: 1,
+        delay: 3000
       },
       {
         text: `Let's watch the move again, make your best guess about the player's goal.
-        Keep in mind throughout the following tasks that the player might make mistakes, but not always.`,
+        Keep in mind throughout the following tasks that the player might sometimes be
+        inefficient or make mistakes.`,
         image: "tutorial/tutorial/3b.gif",
+        tutorial: true,
+        questions_show: false
+      },
+      {
+        text: "",
+        image: "tutorial/tutorial/3.gif",
         tutorial: true
       },
       {
-        text: `The player is now fixing the mistake.`,
+        text: `The player is now going back for the second key.`,
         image: "tutorial/tutorial/4.gif",
         tutorial: true
       },
@@ -460,7 +477,7 @@ experimentApp.controller('ExperimentController',
         tutorial: true
       },
       {
-        text: `Yes, your friend was aiming for the blue gem!`,
+        text: `Yes, the player was aiming for the blue gem!`,
         image: "tutorial/tutorial/6.gif",
       },
       {
@@ -492,32 +509,32 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Decide which gem your friend should collect.", "Control the player to collect gems.",
-          "Watch your friend play and try to guess which gem they are trying to collect."],
+        options: ["Decide which gem the player should collect.", "Control the player to collect gems.",
+          "Watch someone play and try to guess which gem they are trying to collect."],
         answer: 2,
         exam: true
       },
       {
-        text: `<b>Question 2/4:</b>  In a game, how many gems is your friend trying to collect?`,
+        text: `<b>Question 2/4:</b>  In a game, how many gems is the player trying to collect?`,
         options: ["1 gem only", "2 gems only", "As many as possible"],
         answer: 0,
         exam: true
       },
       {
-        text: `<b>Question 3/4:</b> You're watching your friend play and <b>two</b> of the gems seem likelier than the third. What should you do?`,
+        text: `<b>Question 3/4:</b> You're watching the player and <b>two</b> of the gems seem likelier than the third. What should you do?`,
         options: ["Guess <b>one</b> of the two likely gems.", "Guess <b>both</b> likely gems."],
         answer: 1,
         exam: true
       },
       {
-        text: `<b>Question 4/4:</b> You're watching your friend play and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
+        text: `<b>Question 4/4:</b> You're watching the player and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
         options: ["Guess one or two gems and hope one of them is correct.", "Select the \"All Equally Likely\" option because I may lose bonus points from guessing incorrectly."],
         answer: 1,
         exam: true
       },
       {
         text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds.
-        For the last 2 rounds, we will also ask you whether you believe your friend made a mistake, and to describe the mistake if so.
+        For the last 2 rounds, we will also ask you whether you believe the player made a mistake, and to describe the mistake if so.
         Ready to start? Press Next to continue!`
       }
     ];
