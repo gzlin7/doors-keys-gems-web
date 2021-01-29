@@ -42,14 +42,14 @@ experimentApp.controller('ExperimentController',
     }
     $scope.toggle_dontknow = function () {
       if ($scope.response.dontKnow) {
-        $scope.response.checked = [true, true, true, true, true];
+        $scope.response.checked = [true, true, true];
       } else {
-        $scope.response.checked = [false, false, false, false, false];
+        $scope.response.checked = [false, false, false];
       }
       $scope.validate_goal();
     }
     $scope.check_all = function () {
-      $scope.response = { "checked": [true, true, true, true, true] };
+      $scope.response = { "checked": [true, true, true] };
       $scope.valid_goal = true;
     }
     $scope.validate_exam = function (ans) {
@@ -140,7 +140,7 @@ experimentApp.controller('ExperimentController',
                    $scope.instructions[$scope.inst_id].delay);
         }
       }
-      $scope.response = { "checked": [false, false, false, false, false] };
+      $scope.response = { "checked": [false, false, false] };
       $scope.valid_goal = false;
       $scope.comprehension_response = "";
       $scope.valid_comprehension = false;
@@ -204,7 +204,7 @@ experimentApp.controller('ExperimentController',
     $scope.compute_ratings = function (resp) {
       // Compute probs from checkboxes
       let numChecked = resp.checked.filter(check => check == true).length;
-      probs = [0, 0, 0, 0, 0];
+      probs = [0, 0, 0];
       num_words_guessed = 0
       resp.checked.forEach((check, index) => {
         if (check) {
@@ -213,7 +213,7 @@ experimentApp.controller('ExperimentController',
         }
       })
       // Increase reward score
-      reward_weights = [-2.0, 8.0, 3.0, 1.3, 0.5, 0.0]
+      reward_weights = [-2.0, 4.0, 2.0, 0]
       console.log($scope.stimuli_set[$scope.stim_id].goal)
       console.log(probs[$scope.stimuli_set[$scope.stim_id].goal])
       if (probs[$scope.true_goal] != 0) {
@@ -307,22 +307,38 @@ experimentApp.controller('ExperimentController',
     $scope.stimuli_sets = [
       // uncomment to test mistake response
       // [1, 2, 3],
-      [3, 7, 11, 15, 1, 5, 9, 13, 4, 8],
-      [7, 11, 15, 1, 5, 9, 13, 4, 8, 12],
-      [11, 15, 1, 5, 9, 13, 4, 8, 12, 16],
-      [15, 1, 5, 9, 13, 4, 8, 12, 16, 2],
-      [1, 5, 9, 13, 4, 8, 12, 16, 2, 6],
-      [5, 9, 13, 4, 8, 12, 16, 2, 6, 10],
-      [9, 13, 4, 8, 12, 16, 2, 6, 10, 14],
-      [13, 4, 8, 12, 16, 2, 6, 10, 14, 3],
-      [4, 8, 12, 16, 2, 6, 10, 14, 3, 7],
-      [8, 12, 16, 2, 6, 10, 14, 3, 7, 11],
-      [12, 16, 2, 6, 10, 14, 3, 7, 11, 15],
-      [16, 2, 6, 10, 14, 3, 7, 11, 15, 1],
-      [2, 6, 10, 14, 3, 7, 11, 15, 1, 5],
-      [6, 10, 14, 3, 7, 11, 15, 1, 5, 9],
-      [10, 14, 3, 7, 11, 15, 1, 5, 9, 13],
-      [14, 3, 7, 11, 15, 1, 5, 9, 13, 4],
+      [3, 7, 11, 15, 1, 5, 9, 13, 4, 8, 12, 16, 2, 6, 10, 14],
+      [7, 11, 15, 1, 5, 9, 13, 4, 8, 12, 16, 2, 6, 10, 14, 3],
+      [11, 15, 1, 5, 9, 13, 4, 8, 12, 16, 2, 6, 10, 14, 3, 7],
+      [15, 1, 5, 9, 13, 4, 8, 12, 16, 2, 6, 10, 14, 3, 7, 11],
+      [1, 5, 9, 13, 4, 8, 12, 16, 2, 6, 10, 14, 3, 7, 11, 15],
+      [5, 9, 13, 4, 8, 12, 16, 2, 6, 10, 14, 3, 7, 11, 15, 1],
+      [9, 13, 4, 8, 12, 16, 2, 6, 10, 14, 3, 7, 11, 15, 1, 5],
+      [13, 4, 8, 12, 16, 2, 6, 10, 14, 3, 7, 11, 15, 1, 5, 9],
+      [4, 8, 12, 16, 2, 6, 10, 14, 3, 7, 11, 15, 1, 5, 9, 13],
+      [8, 12, 16, 2, 6, 10, 14, 3, 7, 11, 15, 1, 5, 9, 13, 4],
+      [12, 16, 2, 6, 10, 14, 3, 7, 11, 15, 1, 5, 9, 13, 4, 8],
+      [16, 2, 6, 10, 14, 3, 7, 11, 15, 1, 5, 9, 13, 4, 8, 12],
+      [2, 6, 10, 14, 3, 7, 11, 15, 1, 5, 9, 13, 4, 8, 12, 16],
+      [6, 10, 14, 3, 7, 11, 15, 1, 5, 9, 13, 4, 8, 12, 16, 2],
+      [10, 14, 3, 7, 11, 15, 1, 5, 9, 13, 4, 8, 12, 16, 2, 6],
+      [14, 3, 7, 11, 15, 1, 5, 9, 13, 4, 8, 12, 16, 2, 6, 10]
+
+      // [7, 11, 15, 1, 5, 9, 13, 4, 8, 12],
+      // [11, 15, 1, 5, 9, 13, 4, 8, 12, 16],
+      // [15, 1, 5, 9, 13, 4, 8, 12, 16, 2],
+      // [1, 5, 9, 13, 4, 8, 12, 16, 2, 6],
+      // [5, 9, 13, 4, 8, 12, 16, 2, 6, 10],
+      // [9, 13, 4, 8, 12, 16, 2, 6, 10, 14],
+      // [13, 4, 8, 12, 16, 2, 6, 10, 14, 3],
+      // [4, 8, 12, 16, 2, 6, 10, 14, 3, 7],
+      // [8, 12, 16, 2, 6, 10, 14, 3, 7, 11],
+      // [12, 16, 2, 6, 10, 14, 3, 7, 11, 15],
+      // [16, 2, 6, 10, 14, 3, 7, 11, 15, 1],
+      // [2, 6, 10, 14, 3, 7, 11, 15, 1, 5],
+      // [6, 10, 14, 3, 7, 11, 15, 1, 5, 9],
+      // [10, 14, 3, 7, 11, 15, 1, 5, 9, 13],
+      // [14, 3, 7, 11, 15, 1, 5, 9, 13, 4],
     ]
     $scope.stimuli_set_length = $scope.stimuli_sets[0].length;
     $scope.instructions = [
@@ -523,7 +539,7 @@ experimentApp.controller('ExperimentController',
         exam: true
       },
       {
-        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds.
+        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 16 different rounds.
         For the last 2 rounds, we will also ask you whether you believe the player made a mistake, and to describe the mistake if so.
         Ready to start? Press Next to continue!`
       }
