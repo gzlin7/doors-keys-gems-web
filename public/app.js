@@ -335,21 +335,21 @@ experimentApp.controller('ExperimentController',
                Press Next to continue.`,
       },
       {
-        text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here.
+        text: `Imagine you're watching your friend play the video game shown to the left.
                At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
               The rules of the game are as follows:
               <br>
               <ul>
-              <li> The player's goal is to collect their target gem</li>
-              <li> The player can move on the white squares</li>
-              <li> The player have a full view of the map at all times</li>
-              <li> The player can pick up keys and gems by walking over them</li>
-              <li> Keys are used to unlock doors</li>
-              <li> A key can only be used once</li>
-              <li> The player can pick up multiple keys</li>
-              <li> If it's no longer possible for the player to obtain their target gem the game ends</li>
+              <li> The player's goal is to collect their target gem.</li>
+              <li> The player can move on the white squares.</li>
+              <li> The player have a full view of the map at all times.</li>
+              <li> The player can pick up keys and gems by walking over them.</li>
+              <li> Keys are used to unlock doors.</li>
+              <li> A key can only be used once.</li>
+              <li> The player can pick up multiple keys.</li>
+              <li> The game ends if it's no longer possible for the player to obtain their target gem.</li>
               </ul>
-              Your task is to watch and try to <b> figure out which gem your friend is trying to collect (goal gem) </b>.
+              Your task is to watch and try to <b> figure out which gem your friend is trying to collect</b>.
               <br><br>
               Press the <b>Next</b> button to watch your friend play.
               `,
@@ -376,7 +376,7 @@ experimentApp.controller('ExperimentController',
         image: "tutorial/demo/scenario-tutorial-demo.gif",
         question: `Can you tell if your friend <b>made a mistake</b> while playing?`,
         options: ["No, there was no mistake",
-                  "Yes, they <i><b>mistakenly</b></i> &nbsp; moved down past the second key."],
+                  "Yes, they accidentally moved past the second key."],
         footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
         answer: 1
       },
@@ -492,7 +492,7 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Watch your friend play and decide which gem they should collect.", "Control the player to collect gems.",
+        options: ["Decide which gem your friend should collect.", "Control the player to collect gems.",
           "Watch your friend play and try to guess which gem they are trying to collect."],
         answer: 2,
         exam: true

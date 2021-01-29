@@ -46,6 +46,11 @@
       list-style-type: none;
     }
 
+    ul.no-bullets-full-row {
+      width: 200%;
+      list-style-type: none;
+    }
+
     input[type=checkbox],
     input[type=radio] {
       /* Double-sized Checkboxes */
@@ -147,7 +152,7 @@
       <!-- Instructions -->
       <p ng-show="section == 'instructions' && !instruction_has_image()" class="instructions1 full-row"
         ng-bind-html="instructions[inst_id].text">
-      <ul class="no-bullets" ng_show="is_exam()" ng-repeat="opt in instructions[inst_id].options">
+      <ul class="no-bullets-full-row" ng_show="is_exam()" ng-repeat="opt in instructions[inst_id].options">
         <li><input type="radio" name="exam" ng-model="exam_response" ng-click="validate_exam(opt)" value="{{opt}}">
           <span class="checkboxtext" ng-bind-html="opt"></span>
         </li>
@@ -164,8 +169,8 @@
 
         <!-- Mistake text box -->
         <span ng-show="section == 'stimuli' && part_id < 0 && last_two_scenarios">
-          Did your friend make a mistake while trying to spell
-          <span ng-style="{color:'blue'}">{{possible_goals[stimuli_set[stim_id-1].goal]}}</span>? Make your best guess.
+          Did your friend make a mistake or act inefficiently while trying to reach
+          {{possible_goals[stimuli_set[stim_id-1].goal]}} gem?
           <br>
           <input type="radio" name="mistake_yes_no" ng-model="mistake_yes_no" ng-change="validate_mistake()"
             value="yes">
@@ -174,7 +179,7 @@
           <span class="checkboxtext">No</span>
           <br>
           <span ng-show="mistake_yes_no == 'yes'"> Please provide a <b>brief description of the
-              mistake</b> in the box below to continue.
+              mistake or inefficiency</b> in the box below to continue.
             <br>
             <textarea ng-model="mistake_response" ng-change="validate_mistake()" rows="4" cols="75">
           </textarea>
@@ -187,13 +192,14 @@
         1}}/{{stimuli_set_length}}</div>
       <!-- Break screen before last 2 stimuli -->
       <p ng-show="section == 'breakscreen'" class="full-row">
-        Almost done! In these last two rounds, we're adding a bonus question: At the end of each round, you'll be asked
-        to judge <b>whether your friend made a mistake while trying to spell the word.</b>
+        Almost done! In these last two rounds, we're adding a bonus question:
+        At the end of each round, you'll be asked
+        to judge <b>whether your friend made a mistake or acted inefficiently.</b>
         <br> <br>
-        You'll be asked to judge <b>yes</b> or <b>no</b>, and provide a brief text description of the mistake, if any.
-        For each
-        correct answer, you'll get a bonus of <b>5 points ($0.50)</b>, so pay attention while you
-        step through the rounds!
+        You'll be asked to judge <b>yes</b> or <b>no</b>, and provide a brief
+        text description of the mistake or inefficiency, if any.
+        For each correct answer, you'll get a bonus of <b>5 points ($0.50)</b>,
+        so pay attention for mistakes!
         <br> <br>
         Hit Next to continue.
       </p>
@@ -235,7 +241,7 @@
       <div ng-show="(section == 'stimuli' && part_id >= 0) || (is_tutorial() && !hide_questions())" class="hidden"
         id="question" class="question">
         <br><br>
-        <p><b>Which gem or gems are most likely to be the player's goal gem? </b> </p>
+        <p><b>Which gem or gems are most likely to be the player's goal? </b> </p>
         <ul class="no-bullets">
           <li><input type="checkbox" ng-model="response.checked[0]" ng-change="validate_goal()"
               ng-disabled="response.dontKnow">
