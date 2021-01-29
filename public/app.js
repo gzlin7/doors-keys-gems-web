@@ -495,7 +495,6 @@ experimentApp.controller('ExperimentController',
       {
         text: `<b>Bonus Payment Points</b> <br>
                The points system works as follows:<br>
-               The points system works as follows:<br>
                <b>-2.0 points</b> if none of the gems you choose is correct <br>
                <b>0.0 points</b> for saying "All Equally Likely" or choosing all gems<br>
                <b>2.0 points</b> for choosing 2 gems, one of which is the correct gem <br>
