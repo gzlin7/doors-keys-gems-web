@@ -2,7 +2,7 @@ var experimentApp = angular.module('experimentApp', ['ngSanitize', 'preloader'])
 var start_time;
 
 experimentApp.controller('ExperimentController',
-  function ExperimentController($scope, preloader) {
+  function ExperimentController($scope, $timeout, preloader) {
     $scope.section = "instructions";
     $scope.inst_id = 0;
     $scope.stim_id = 0;
@@ -21,15 +21,7 @@ experimentApp.controller('ExperimentController',
     $scope.valid_mistake = false;
     $scope.last_two_scenarios = false;
     $scope.breakscreen_shown = false;
-    $scope.csv_header = [
-      "timestep",
-      "goal_probs_0",
-      "goal_probs_1",
-      "goal_probs_2",
-      "goal_probs_3",
-      "goal_probs_4",
-      "true_goal_probs"
-    ];
+    $scope.show_rhs = true;
     $scope.exam_results = [];
     $scope.ratings = [];
     $scope.reload_gif = function () {
@@ -117,8 +109,9 @@ experimentApp.controller('ExperimentController',
         $scope.stim_id = 0;
         $scope.part_id = 0;
         $scope.ratings = [];
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
+        preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
+          function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         // get time of first experiment
         if (start_time == undefined) {
           start_time = (new Date()).getTime();
@@ -141,6 +134,11 @@ experimentApp.controller('ExperimentController',
           $scope.exam_results.push(correct);
         }
         $scope.inst_id = $scope.inst_id + 1;
+        if ($scope.instructions[$scope.inst_id].delay > 0) {
+          $scope.show_rhs = false;
+          $timeout(function() {$scope.show_rhs = true;},
+                   $scope.instructions[$scope.inst_id].delay);
+        }
       }
       $scope.response = { "checked": [false, false, false, false, false] };
       $scope.valid_goal = false;
@@ -181,11 +179,9 @@ experimentApp.controller('ExperimentController',
         }
         // Advance to first part
         preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
-					function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
+          function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         $scope.part_id = $scope.part_id + 1;
         $scope.ratings = [];
-        // set possible goals based on stimuli json
-        $scope.possible_goals = $scope.stimuli_set[$scope.stim_id].goal_space;
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
       } else if ($scope.part_id < $scope.stimuli_set[$scope.stim_id].length) {
         // Advance to next part
@@ -277,14 +273,18 @@ experimentApp.controller('ExperimentController',
       // unhide question sliders- workaround for slider initial flashing
       document.getElementById("question").classList.remove("hidden");
     };
-    $scope.rating_labels = ["Very Unlikely", "Maybe", "Very Likely"];
-    $scope.possible_goals = ["power", "cower", "crow", "core", "pore"];
+    $scope.possible_goals = ["red", "yellow", "blue"];
     $scope.true_goal = 0
     $scope.reward_score = 0;
     $scope.bonus_points = 0;
     $scope.total_reward = 0;
     $scope.mistake_bonus = 0
     $scope.tutorial_score = 0;
+
+    $scope.gem_colors = [{color:"#D41159"}, {color:"#FFC20A"}, {color:"#1A85FF"}];
+    $scope.true_color = function(id) {
+      return $scope.gem_colors[$scope.true_goal];
+    };
 
     $scope.instruction_has_image = function () {
       return $scope.instructions[$scope.inst_id].image != null
@@ -327,149 +327,153 @@ experimentApp.controller('ExperimentController',
     $scope.stimuli_set_length = $scope.stimuli_sets[0].length;
     $scope.instructions = [
       {
-        text: `Welcome to our goal inference game! <br>
-               Before you begin your task, you'll complete a brief guided tutorial (~ 5 minutes) 
+        text: `Welcome to our goal prediction game! <br>
+               Before you begin your task, you'll complete a brief guided tutorial (~ 5 minutes)
                to understand the game.<br>
                Press Next to continue.`,
       },
       {
-        text: `Imagine you're watching your friend play the Doors, Keys & Gems video game shown here. 
-              The rules of the game are as follows: 
+        text: `Imagine you're watching someone play the video game shown to the left.
+               At the beginning of the game, the player is given a target gem (one of: Red, Blue, Yellow).
+              The rules of the game are as follows:
               <br>
               <ul>
-              <li> The player decides on a gem to collect at the begining of the game.</li>
-              <li> The target gem doesn't change along the way.</li>
-              <li> The player can only move on the white squares.</li>
-              <li> The player have a full view of the map at all times.</li>
+              <li> The player's goal is to collect their target gem.</li>
+              <li> The player can move on the white squares.</li>
+              <li> The player has a full view of the map at all times.</li>
+              <li> The player can pick up keys and gems at their position.</li>
               <li> Keys are used to unlock doors.</li>
-              <li> The player can pick up multiple keys.</li>
               <li> A key can only be used once.</li>
-              <li> If the player fails to collect the target gem the game ends.</li>
+              <li> The player can pick up multiple keys.</li>
+              <li> The game ends if it's no longer possible for the player to obtain their target gem.</li>
               </ul>
-              You are watching and trying to figure out which gem your friend is trying to collect. 
+              Your task is to watch and try to <b> figure out which gem the player is trying to collect</b>.
               <br><br>
-              Hit the <b>Next button</b> to watch your friend play. 
+              Press the <b>Next</b> button to watch.
               `,
         image: "tutorial/demo/0.gif"
       },
       {
         text: ``,
         image: "tutorial/demo/scenario-tutorial-demo.gif",
-        question: `Can you figure our which gem your friend is trying to collect?`,
+        question: `Can you figure out which gem the player is trying to collect?`,
         options: ["Red", "Yellow", "Blue"],
         answer: 1
       },
       {
-        text: `Let's watch it again, but this time, pay attention to whether your friend 
-              <b>made a mistake</b> while playing.
+        text: `Let's watch it again, but this time, pay attention to whether the player
+              <b>made a mistake</b>.
               <br> <br>
-              Hit Next to continue.`,
+              Press Next to continue, then watch closely.`,
         image: "tutorial/demo/0.gif",
-        tutorial: true, 
+        tutorial: true,
         questions_show: false
       },
       {
         text: ``,
         image: "tutorial/demo/scenario-tutorial-demo.gif",
-        question: `Can you tell if your friend <b>made a mistake</b> while playing?`,
-        options: ["No, there was no mistake", 
-                  "Yes, they <i><b>mistakenly</b></i> &nbsp; moved down past the second key."],
-        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
+        question: `Can you tell if the player <b>made a mistake</b>?`,
+        options: ["No, there was no mistake",
+                  "Yes, they accidentally moved past the second key."],
+        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay\".",
         answer: 1
       },
       {
-        text: `Your task now is to watch videos of someone playing the same game, 
-              and guess which gem they are most likely trying to collect: Red, yellow, or blue?
+        text: `Your task now is to watch videos of someone playing the game,
+              and guess which gem they are most likely trying to collect: Red, Yellow, or Blue?
               <br><br>
               <b>How to guess?</b> <br>
-              As the player moves on the map, you need to choose which gem (out of the three possible gems) 
-              your friend is most likely trying to collect.
-              If there are several likely choices you can select <b>more than one gem</b>. 
+              As the player moves on the map, you need to choose which gem you think they are most likely trying to collect.
+              You can select <b>more than one gem</b> if there are <b>several likely choices</b>!
               If you think all three gems are equally likely, you can select the "All Equally Likely" option.`
       },
       {
         text: `Let's do a practice run, just so you're familiarized.`,
       },
       {
-        text: `First, you'll get a chance to look at the layout. 
-              Before seeing the player (red triangle) move, choose which gem you think is most likely the target gem. 
-              If all three gems seem equally likely, you can indicate this by selecting the "All Equally Likely" option. `,
+        text: `First, you'll get a chance to look at the layout.
+              Before seeing the player (red triangle) move, choose which gem you think is most likely the goal gem.
+              If all three gems seem equally likely, you can select the "All Equally Likely" option. `,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: true
       },
       {
-        text: `In the next step, the player will make the first move.
-              <br><br> 
-              Press Next to continue`,
+        text: `Now watch the player move a few steps ahead.
+              <br><br>
+              Press Next to continue, then watch closely.`,
         image: "tutorial/tutorial/0.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        text: `What do you think? Does picking up the key and opening the door make some gems more likely?
-`,
+        text: `What do you think? Does picking up the key make some of the gems more likely?
+              If you think two gems are <b>equally likely</b>, you can select <b>both</b> of them.`,
         image: "tutorial/tutorial/1.gif",
+        footnote: "Once done, press Next to watch the next series of moves.",
         tutorial: true,
-        questions_show: true
+        questions_show: true,
+        delay: 1000
       },
       {
-        text: `How about now? If you think two gems are equally likely you can indicate this by selecting both of them.
-`,
+        text: `How about now? Do these actions make any particular gem more likely than the others?`,
         image: "tutorial/tutorial/2.gif",
         tutorial: true,
-        questions_show: true
+        questions_show: true,
+        delay: 3000
       },
       {
-        text: `How about now? Does this move make any particular gem more likely than the others?`,
-        image: "tutorial/tutorial/3.gif",
-        tutorial: true,
-        questions_show: true
-      },
-      {
-        text: `You may soon notice that some of the player's moves don't make sense. 
-              That's fine, the person playing the game <b>might make mistakes</b> sometimes.
+        text: `You may soon notice that the player may not always take the most efficient path
+              to the goal. That's fine - the person playing the game might <b>make mistakes</b>
+              or <b>be inefficient</b>.
               <br> <br>
               Press Next to see the next series of moves.`,
+        image: "tutorial/tutorial/2b.gif",
+        tutorial: true,
+        questions_show: false
+      },
+      {
+        image: "tutorial/tutorial/3.gif",
+        question: `Is the player taking the most efficient path to their goal? Remember, once a key is used to unlock a door, it is gone forever.`,
+        options: ['Yes, the player is taking the shortest path possible to their goal.',
+                  'No, they could have picked up both keys before unlocking the door.'
+        ],
+        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay\".",
+        answer: 1,
+        delay: 3000
+      },
+      {
+        text: `Let's watch the move again, make your best guess about the player's goal.
+        Keep in mind throughout the following tasks that the player might sometimes be
+        inefficient or make mistakes.`,
         image: "tutorial/tutorial/3b.gif",
         tutorial: true,
         questions_show: false
       },
       {
-        image: "tutorial/tutorial/4.gif",
-        question: `How would you best describe the mistake here? Remember, once a key is used to unlock a door, it is gone forever.`,
-        options: ['I don\'t think a mistake was made.', 
-                  'The player wants the red gem but has used up the key on the <i><b>wrong</b></i> &nbsp; door and now they are going back to pick it the other key to collect the red gem.',
-                  'The player wants the blue gem but <i><b>mistakenly</b></i> &nbsp; missed the second key and now they are going back to pick it up.'
-        ],
-        footnote: "If you missed what happened, you can always replay the current move by clicking \"Replay Move\".&nbsp;",
-        answer: 2
-      },
-      {
-        text: `Let's watch the move again, make your best guess about the player's goal.
-        Keep in mind throughout the following tasks that the player might make mistakes, but not always.`,
-        image: "tutorial/tutorial/4b.gif",
+        text: "",
+        image: "tutorial/tutorial/3.gif",
         tutorial: true
       },
       {
-        text: `How about now?`,
-        image: "tutorial/tutorial/5.gif",
+        text: `The player is now going back for the second key.`,
+        image: "tutorial/tutorial/4.gif",
         tutorial: true
       },
       {
         text: `Even if it seems obvious what the goal is, do make sure to
                answer by selecting the most likely gem only.`,
-        image: "tutorial/tutorial/6.gif",
+        image: "tutorial/tutorial/5.gif",
         tutorial: true
       },
       {
-        text: `Yes, your friend was aiming for the blue gem!`,
-        image: "tutorial/tutorial/7.gif",
+        text: `Yes, the player was aiming for the blue gem!`,
+        image: "tutorial/tutorial/6.gif",
       },
       {
         text: `<b>Bonus Payment Points</b> <br>
-               As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make, 
-               based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game, 
+               As you play, you can earn <b>bonus payment</b> by collecting <b>points for each guess</b>  you make,
+               based on <b>how correct</b> the guess is. Your score for each game is the average score of your guesses in the game,
                and will be <b>displayed after that game</b>.
                <br><br>
                Your points from all games are converted to bonus payment at a rate of <b>10 points = $1.00.</b>
@@ -485,42 +489,42 @@ experimentApp.controller('ExperimentController',
                <b>XX points</b> for choosing 2 gems, one of which is the correct gem <br>
                <b>XX points</b> for choosing only the correct gem
                <br><br>
-               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident! 
+               <b>Important:</b> Because <b>you might lose points</b> if you guess incorrectly, don't be over-confident!
                The point system is designed so that you <b>don't benefit from guessing when you don't know for sure</b>.`
       },
       {
         text: `<b>Comprehension Check Questions</b> <br>
-               For the last part of the tutorial, we will ask 4 quick questions to check your understanding of the task. 
+               For the last part of the tutorial, we will ask 4 quick questions to check your understanding of the task.
                For each question, please select the best answer.`
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Watch your friend play and decide which gem they should collect.", "Control the player to collect gems.",
-          "Watch your friend play and try to guess which gem they are trying to collect."],
+        options: ["Decide which gem the player should collect.", "Control the player to collect gems.",
+          "Watch someone play and try to guess which gem they are trying to collect."],
         answer: 2,
         exam: true
       },
       {
-        text: `<b>Question 2/4:</b>  In a game, how many gems is your friend trying to collect?`,
+        text: `<b>Question 2/4:</b>  In a game, how many gems is the player trying to collect?`,
         options: ["1 gem only", "2 gems only", "As many as possible"],
         answer: 0,
         exam: true
       },
       {
-        text: `<b>Question 3/4:</b> You're watching your friend play and <b>two</b> of the gems seem likelier than the third. What should you do?`,
+        text: `<b>Question 3/4:</b> You're watching the player and <b>two</b> of the gems seem likelier than the third. What should you do?`,
         options: ["Guess <b>one</b> of the two likely gems.", "Guess <b>both</b> likely gems."],
         answer: 1,
         exam: true
       },
       {
-        text: `<b>Question 4/4:</b> You're watching your friend play and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
+        text: `<b>Question 4/4:</b> You're watching the player and <b>none</b> of the gems seem likelier than the rest. Which is the best guessing strategy?`,
         options: ["Guess one or two gems and hope one of them is correct.", "Select the \"All Equally Likely\" option because I may lose bonus points from guessing incorrectly."],
         answer: 1,
         exam: true
       },
       {
-        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds. 
-        For the last 2 rounds, we will also ask you whether you believe your friend made a mistake, and to describe the mistake if so.
+        text: `Congrats! You've finished the tutorial. Your task is to guess gems for 10 different rounds.
+        For the last 2 rounds, we will also ask you whether you believe the player made a mistake, and to describe the mistake if so.
         Ready to start? Press Next to continue!`
       }
     ];
@@ -583,7 +587,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 4,
-          "length": 6,
+          "length": 5,
           "images": [
             "stimuli/scenario_1_3_0.gif",
             "stimuli/scenario_1_3_1.gif",
@@ -610,7 +614,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 4,
-          "length": 9,
+          "length": 8,
           "images": [
             "stimuli/scenario_3_2_0.gif",
             "stimuli/scenario_3_2_1.gif",
@@ -635,7 +639,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 5,
-          "length": 4,
+          "length": 3,
           "images": [
             "stimuli/scenario_2_2_0.gif",
             "stimuli/scenario_2_2_1.gif",
@@ -676,7 +680,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 6,
-          "length": 9,
+          "length": 8,
           "images": [
             "stimuli/scenario_3_1_0.gif",
             "stimuli/scenario_3_1_1.gif",
@@ -702,7 +706,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 6,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_1_1_0.gif",
             "stimuli/scenario_1_1_1.gif",
@@ -724,7 +728,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 0,
           "problem": 7,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_1_2_0.gif",
             "stimuli/scenario_1_2_1.gif",
@@ -824,7 +828,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 9,
-          "length": 5,
+          "length": 4,
           "images": [
             "stimuli/scenario_2_1_0.gif",
             "stimuli/scenario_2_1_1.gif",
@@ -863,7 +867,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 10,
-          "length": 4,
+          "length": 3,
           "images": [
             "stimuli/scenario_2_3_0.gif",
             "stimuli/scenario_2_3_1.gif",
@@ -885,7 +889,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 1,
           "problem": 11,
-          "length": 6,
+          "length": 5,
           "images": [
             "stimuli/scenario_3_3_0.gif",
             "stimuli/scenario_3_3_1.gif",
@@ -910,7 +914,7 @@ experimentApp.controller('ExperimentController',
           "optimal": false,
           "goal": 2,
           "problem": 12,
-          "length": 7,
+          "length": 6,
           "images": [
             "stimuli/scenario_1_4_0.gif",
             "stimuli/scenario_1_4_1.gif",
