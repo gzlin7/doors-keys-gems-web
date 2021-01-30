@@ -494,9 +494,9 @@ experimentApp.controller('ExperimentController',
       },
       {
         text: `<b>Question 1/4:</b> What is the purpose of your task?`,
-        options: ["Collect keys to open all doors.", "Control the player to collect gems.",
-          "Watch someone play and try to guess which gem they are trying to collect."],
-        answer: 2,
+        options: ["Control the player to collect gems.",
+          "Watch someone play and try to guess which gem they are trying to collect.", "Collect keys to open all doors."],
+        answer: 1,
         exam: true
       },
       {
