@@ -229,8 +229,10 @@
       <!-- Questions for goals-->
       <div ng-show="(section == 'stimuli' && part_id >= 0) || (is_tutorial() && !hide_questions())"
         id="question" class="captions">
+        <p><b>
         <br><br>
-        <p><b>Which gem or gems are most likely to be the player's goal? </b> </p>
+        <p><b>Which gem or gems are most likely to be the player's goal? </b>
+        Please watch the move fully before you make your selection. </p>
         <ul class="no-bullets">
           <li><input type="checkbox" ng-model="response.checked[0]" ng-change="validate_goal()"
               ng-disabled="response.dontKnow">
