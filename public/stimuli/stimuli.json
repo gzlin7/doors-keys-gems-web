@@ -175,16 +175,14 @@
       "stimuli/scenario_2_4_3.gif",
       "stimuli/scenario_2_4_4.gif",
       "stimuli/scenario_2_4_5.gif",
-      "stimuli/scenario_2_4_6.gif",
-      "stimuli/scenario_2_4_7.gif"
+      "stimuli/scenario_2_4_6.gif"
     ],
     "trial": 0,
     "times": [
       1,
       9,
       12,
-      18,
-      26,
+      22,
       31,
       41,
       47
@@ -194,7 +192,7 @@
     "goal": 1,
     "optimal": false,
     "problem": 8,
-    "length": 8,
+    "length": 7,
     "scenario": 2
   },
   {
@@ -209,7 +207,7 @@
     "times": [
       1,
       7,
-      24,
+      22,
       37,
       55
     ],
@@ -233,8 +231,8 @@
     "times": [
       1,
       14,
-      25,
-      54,
+      24,
+      29,
       56
     ],
     "name": "scenario_3_2",
@@ -275,14 +273,16 @@
       "stimuli/scenario_3_4_1.gif",
       "stimuli/scenario_3_4_2.gif",
       "stimuli/scenario_3_4_3.gif",
-      "stimuli/scenario_3_4_4.gif"
+      "stimuli/scenario_3_4_4.gif",
+      "stimuli/scenario_3_4_5.gif"
     ],
     "trial": 0,
     "times": [
       1,
       9,
       26,
-      51,
+      44,
+      49,
       53
     ],
     "name": "scenario_3_4",
@@ -290,7 +290,7 @@
     "goal": 2,
     "optimal": false,
     "problem": 8,
-    "length": 5,
+    "length": 6,
     "scenario": 3
   },
   {
