@@ -110,8 +110,6 @@ experimentApp.controller('ExperimentController',
         $scope.part_id = 0;
         $scope.ratings = [];
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
-        preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
-          function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         // get time of first experiment
         if (start_time == undefined) {
           start_time = (new Date()).getTime();
@@ -178,8 +176,6 @@ experimentApp.controller('ExperimentController',
           $scope.store_mistake_data(1);
         }
         // Advance to first part
-        preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
-          function handleResolve(imglocs) {console.info("Preloaded stimulus.");});
         $scope.part_id = $scope.part_id + 1;
         $scope.ratings = [];
         $scope.true_goal = $scope.stimuli_set[$scope.stim_id].goal;
@@ -193,6 +189,8 @@ experimentApp.controller('ExperimentController',
           $scope.stim_id = $scope.stim_id + 1;
           $scope.bonus_points = (($scope.reward_score) / $scope.stimuli_set[$scope.stim_id - 1].length).toFixed(1);
           $scope.total_reward += parseFloat($scope.bonus_points)
+          preloader.preloadImages($scope.stimuli_set[$scope.stim_id].images).then(
+            function handleResolve(imglocs) {console.info("Preloaded next stimulus.");});
         }
       }
       $scope.response = { "checked": [false, false, false, false, false] };
@@ -268,6 +266,9 @@ experimentApp.controller('ExperimentController',
       incrementCounter();
       // unhide question sliders- workaround for slider initial flashing
       document.getElementById("question").classList.remove("hidden");
+      // preload first stimulus
+      preloader.preloadImages($scope.stimuli_set[0].images).then(
+        function handleResolve(imglocs) {console.info("Preloaded first stimulus.");});
     };
     $scope.possible_goals = ["red", "yellow", "blue"];
     $scope.true_goal = 0
