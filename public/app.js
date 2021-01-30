@@ -220,7 +220,7 @@ experimentApp.controller('ExperimentController',
       else {
         $scope.reward_score += reward_weights[0];
       }
-      console.log("reward = " + $scope.reward_score)
+      // console.log("reward = " + $scope.reward_score)
 
       if ($scope.section == "instructions") {
         $scope.points = (probs[$scope.true_goal] * 10).toFixed(1);
