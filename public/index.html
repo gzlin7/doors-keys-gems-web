@@ -75,6 +75,10 @@
       display: inline;
     }
 
+    .unbold {
+      font-weight:normal;
+    }
+
     .check-all {
       margin-left: 40px;
       background-color: #0f6bd4;
@@ -281,12 +285,12 @@
       </p>
 
       <!-- Comprehension questions -->
-      <div ng-show="section == 'instructions' && instruction_has_question()" class="comprehension_question">
+      <div ng-show="section == 'instructions' && instruction_has_question()" class="comprehension_question unbold">
         <p ng-bind-html="instructions[inst_id].question"></p>
 
         <ul class="no-bullets" ng-repeat="opt in instructions[inst_id].options">
           <li><input type="radio" name="comprehension" ng-model="comprehension_response" ng-click="validate_answer(opt)"
-              value="{{opt}}"> <span class="checkboxtext" ng-bind-html="opt"></span>
+              value="{{opt}}"> <span class="checkboxtext unbold" ng-bind-html="opt"></span>
           </li>
         </ul>
         <br>
@@ -297,7 +301,7 @@
         </div>
       </div>
 
-      <div ng-show="section == 'instructions'" class="comprehension_question">
+      <div ng-show="section == 'instructions'" class="comprehension_question unbold">
         <p ng-bind-html="instructions[inst_id].footnote"></p>
       </div>
 
