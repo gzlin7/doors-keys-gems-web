@@ -581,8 +581,8 @@ experimentApp.controller('ExperimentController',
           "times": [
             1,
             7,
-            14,
-            20
+            17,
+            23
           ],
           "name": "scenario_1_1",
           "number": 1,
@@ -676,7 +676,7 @@ experimentApp.controller('ExperimentController',
             1,
             6,
             11,
-            21
+            24
           ],
           "name": "scenario_2_1",
           "number": 1,
@@ -691,11 +691,13 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_2_2_0.gif",
             "stimuli/scenario_2_2_1.gif",
             "stimuli/scenario_2_2_2.gif",
-            "stimuli/scenario_2_2_3.gif"
+            "stimuli/scenario_2_2_3.gif",
+            "stimuli/scenario_2_2_4.gif"
           ],
           "trial": 0,
           "times": [
             1,
+            4,
             6,
             11
           ],
@@ -704,7 +706,7 @@ experimentApp.controller('ExperimentController',
           "goal": 0,
           "optimal": false,
           "problem": 5,
-          "length": 3,
+          "length": 4,
           "scenario": 2
         },
         {
@@ -761,21 +763,23 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_3_1_1.gif",
             "stimuli/scenario_3_1_2.gif",
             "stimuli/scenario_3_1_3.gif",
-            "stimuli/scenario_3_1_4.gif"
+            "stimuli/scenario_3_1_4.gif",
+            "stimuli/scenario_3_1_5.gif"
           ],
           "trial": 0,
           "times": [
             1,
             7,
             22,
-            37
+            37,
+            50
           ],
           "name": "scenario_3_1",
           "number": 1,
           "goal": 0,
           "optimal": false,
           "problem": 6,
-          "length": 4,
+          "length": 5,
           "scenario": 3
         },
         {
@@ -784,21 +788,25 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_3_2_1.gif",
             "stimuli/scenario_3_2_2.gif",
             "stimuli/scenario_3_2_3.gif",
-            "stimuli/scenario_3_2_4.gif"
+            "stimuli/scenario_3_2_4.gif",
+            "stimuli/scenario_3_2_5.gif",
+            "stimuli/scenario_3_2_6.gif"
           ],
           "trial": 0,
           "times": [
             1,
             14,
             24,
-            29
+            29,
+            40,
+            54
           ],
           "name": "scenario_3_2",
           "number": 2,
           "goal": 1,
           "optimal": false,
           "problem": 4,
-          "length": 4,
+          "length": 6,
           "scenario": 3
         },
         {
@@ -807,21 +815,23 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_3_3_1.gif",
             "stimuli/scenario_3_3_2.gif",
             "stimuli/scenario_3_3_3.gif",
-            "stimuli/scenario_3_3_4.gif"
+            "stimuli/scenario_3_3_4.gif",
+            "stimuli/scenario_3_3_5.gif"
           ],
           "trial": 0,
           "times": [
             1,
             7,
             13,
-            20
+            20,
+            26
           ],
           "name": "scenario_3_3",
           "number": 3,
           "goal": 1,
           "optimal": false,
           "problem": 11,
-          "length": 4,
+          "length": 5,
           "scenario": 3
         },
         {
@@ -830,21 +840,25 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_3_4_1.gif",
             "stimuli/scenario_3_4_2.gif",
             "stimuli/scenario_3_4_3.gif",
-            "stimuli/scenario_3_4_4.gif"
+            "stimuli/scenario_3_4_4.gif",
+            "stimuli/scenario_3_4_5.gif",
+            "stimuli/scenario_3_4_6.gif"
           ],
           "trial": 0,
           "times": [
             1,
             6,
             11,
-            47
+            26,
+            36,
+            49
           ],
           "name": "scenario_3_4",
           "number": 4,
           "goal": 2,
           "optimal": false,
           "problem": 8,
-          "length": 4,
+          "length": 6,
           "scenario": 3
         },
         {
@@ -860,7 +874,7 @@ experimentApp.controller('ExperimentController',
             1,
             8,
             14,
-            18
+            20
           ],
           "name": "scenario_4_1",
           "number": 1,
@@ -875,20 +889,22 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_4_2_0.gif",
             "stimuli/scenario_4_2_1.gif",
             "stimuli/scenario_4_2_2.gif",
-            "stimuli/scenario_4_2_3.gif"
+            "stimuli/scenario_4_2_3.gif",
+            "stimuli/scenario_4_2_4.gif"
           ],
           "trial": 0,
           "times": [
             1,
             4,
-            8
+            7,
+            10
           ],
           "name": "scenario_4_2",
           "number": 2,
           "goal": 2,
           "optimal": false,
           "problem": 5,
-          "length": 3,
+          "length": 4,
           "scenario": 4
         },
         {
@@ -896,20 +912,22 @@ experimentApp.controller('ExperimentController',
             "stimuli/scenario_4_3_0.gif",
             "stimuli/scenario_4_3_1.gif",
             "stimuli/scenario_4_3_2.gif",
-            "stimuli/scenario_4_3_3.gif"
+            "stimuli/scenario_4_3_3.gif",
+            "stimuli/scenario_4_3_4.gif"
           ],
           "trial": 0,
           "times": [
             1,
             5,
-            8
+            8,
+            10
           ],
           "name": "scenario_4_3",
           "number": 3,
           "goal": 0,
           "optimal": false,
           "problem": 10,
-          "length": 3,
+          "length": 4,
           "scenario": 4
         },
         {
@@ -935,7 +953,6 @@ experimentApp.controller('ExperimentController',
           "length": 4,
           "scenario": 4
         }
-      ]
-      ;
+      ];
   }
 )
